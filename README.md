@@ -13,9 +13,9 @@ Wymagany python 3 do działania!
 
 1.Pobierz TWRP dla twojego telefonu ze strony https://twrp.me/Devices/ (Żeby poznać nazwe kodową urządzenia użyj aplikacji AIDA64 na telefonie)
 2.Zmien nazwe pliku na "twrp.img" i umieść go w tym samym katalogu co skrypt twrp_install.py
-3.Uruchom skrypt:
+3.Uruchom skrypt:<br>
  a)Na linuxie najpierw trzeba nadać flage wykonywania 'chmod +x twrp_install.py'
-   a następnie uruchomić jak każdy skrypt z terminala './twrp_install.py'
+   a następnie uruchomić jak każdy skrypt z terminala './twrp_install.py'<br>
  b)Windows chwilowo jest NIE wspierany, obsługa tego OS to mój następny cel więc Stay Tuned ;)
 4.Postępuj wg. instrukcji na ekranie
 
