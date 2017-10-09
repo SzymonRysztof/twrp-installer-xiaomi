@@ -23,3 +23,4 @@ Wymagany python 3 do działania!
 ### Co potrafię:
 -Potrafię zainstalować recovery na urządzeniach xiaomi z poziomu systemu linux<br>
 -Potrafię zresetować telefon w trybach: System, Recovery, Fastboot<br>
+-Określić stan odblokowania Bootloadera
