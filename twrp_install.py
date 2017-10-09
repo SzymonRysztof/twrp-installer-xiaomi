@@ -44,6 +44,7 @@ def chckfl():
 """
 #Ta funckja odpowiada za proces instalacji na linuxie
 def installLinux():
+	
 	os.system('clear')
 	print ()
 	print ()
@@ -106,7 +107,7 @@ def installLinux():
 	exit()
 
 def start():
-	
+
 	if platform == "linux" or platform == "linux2":
 		sys = "l"
 
