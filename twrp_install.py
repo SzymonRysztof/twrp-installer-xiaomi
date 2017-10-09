@@ -4,6 +4,16 @@ from sys import platform
 import time
 
 
+def bl():
+	os.system('fastboot oem device-info > results.txt 2>&1')
+	bl = open('results.txt', 'r').read()
+	os.remove('results.txt')
+	bl = bl[72]+bl[73]+bl[74]+bl[75]+bl[76]
+	if bl[0] == "t":
+		bl = "Odblokowany"
+	elif bl[0] == "f":
+		bl = "Zablokowany"
+	print (bl)
 
 #ta funkcja sprawdza czy zainstalowany jest fastboot w linuxie
 def chckfl():
@@ -44,7 +54,7 @@ def chckfl():
 """
 #Ta funckja odpowiada za proces instalacji na linuxie
 def installLinux():
-	
+
 	os.system('clear')
 	print ()
 	print ()
@@ -54,23 +64,23 @@ def installLinux():
 	if twrpE == True:
 
 		os.system('fastboot devices')
-		print ("Czy widzisz tutaj swój telefon (t/n): ")
+		print ("Czy widzisz tutaj swój telefon (t/n): \n")
 		deviceVisible = input('');
 		deviceVisible = deviceVisible.lower()
 
 		if deviceVisible == "n":
+			print()
 			print ("Sprawdź połączenie telefonu z komputerem")
 			print ("Telefon powinien wyświetlać króliczka (MiTu) grzebiącego w Androidowym Robocie")
-			#tutaj wstawić powrót do początku
-
-			exit()
+			print()
+			menu()
 		elif deviceVisible == "t":
 			print ("Świetnie, możemy przejść do następnego etapu!\n")
 		else:
 			print ("Musisz wybrać opcję (T)ak albo (N)ie!")
-			#tutaj wstawić powrót do początku
+			print()
 
-			exit()
+			menu()
 
 		os.system('fastboot boot twrp.img')
 		print ("\n Czy na twoim telefonie pojawiło się TWRP(W zależności od telefonu może to trwać chwilę)? (t/n)")
@@ -78,9 +88,9 @@ def installLinux():
 
 		if twrpS == "n":
 			print ("Upewnij się że: \n 1.Posiadasz plik twrp.img (bez dodatkowych rozszerzeń!) \n 2.Twrp jest odpowiednie dobrane do twojego telefonu \n 3.Posiadasz odpowiednią wersję pythona \n ")
+			print()
 
-			#tutaj wstawić powrót do początku
-			exit()
+			menu()
 
 		elif twrpS == "t":
 
@@ -97,10 +107,7 @@ def installLinux():
 		print ()
 		print ("https://twrp.me/Devices/")
 		print ()
-		return (1)
-
-		#tutaj wstawić powrót do początku
-		exit()
+		menu()
 
 	os.system('clear')
 	print ("Gratualcję! Możesz cieszyć się zainstalowanym TWRP")
@@ -138,34 +145,88 @@ def start():
 
 #Menu głowne programu!
 def menu():
-	print ("Witaj, ten prosty skrypt przeprowadzi Cię przez proces instalacji Recovery na twoim telefonie XIAOMI")
-	print ("1. Instaluj Recovery")
-	print ("2. Zrebootuj do Recovery")
-	print ("3. Zrebootuj do Fastboot")
-	print ("4. Wymagania")
-	print ("5. O Autorze")
-	print ("6. Kontakt")
-	case = int(input())
+	os.system('cls')
+	os.system('clear')
+	print ("--------------------------------------------------------------------------------------------------------")
+	print ("|                                                                                                      |")
+	print ("| Witaj, ten prosty skrypt przeprowadzi Cię przez proces instalacji Recovery na twoim telefonie XIAOMI |")
+	print ("|                                                                                                      |")
+	print ("| Sugeruje rozszerzenie okna konsoli dla lepszych odczuć                                               |")
+	print ("--------------------------------------------------------------------------------------------------------")
+	print ("|1. Instaluj Recovery                                                                                  |")
+	print ("--------------------------------------------------------------------------------------------------------")
+	print ("|2. Zrebootuj do Recovery (ADB)                                                                        |")
+	print ("--------------------------------------------------------------------------------------------------------")
+	print ("|3. Zrebootuj do Fastboot (ADB)                                                                        |")
+	print ("--------------------------------------------------------------------------------------------------------")
+	print ("|4. Zrebootuje do Systemu (ADB)                                                                        |")
+	print ("--------------------------------------------------------------------------------------------------------")
+	print ("|5. Zrebootuje do Systemu (Fastboot)                                                                   |")
+	print ("--------------------------------------------------------------------------------------------------------")
+	print ("|6. Sprawdź status Bootloadera (l/u)                                                                   |")
+	print ("--------------------------------------------------------------------------------------------------------")
+	print ("|7. Wymagania                                                                                          |")
+	print ("--------------------------------------------------------------------------------------------------------")
+	print ("|8. O Autorze                                                                                          |")
+	print ("--------------------------------------------------------------------------------------------------------")
+	print ("|9. Kontakt                                                                                            |")
+	print ("--------------------------------------------------------------------------------------------------------")
+	case = int(input("Wybierz: "))
 	if case == 1:
 		start()
 	elif case == 2:
 		os.system('adb reboot recovery')
+		menu()
 	elif case == 3:
-		os.system('adb reboot fastboot')
+		os.system('adb reboot bootloader')
+		menu()
 	elif case == 4:
-		print("Wymagania: \n 1. Adb i Fastboot poprawnie zainstalowane \n 2. Plik twrp.img znajdujący się w katalogu ze skrptem \n 3. Python w wersji 3 \n 4. Odblokowany bootloader")
+		os.system('adb reboot')
+		print("")
+		menu()
 	elif case == 5:
+		os.system('fastboot reboot')
 		print("")
+		menu()
 	elif case == 6:
-		print("")
+		os.system('cls')
+		os.system('clear')
+		print ("--------------------------------------------------------------------------------------------------------")
+		print ("Status odblokowanie twojego bootloader to:                                                              ")
+		bl()
+		print ("--------------------------------------------------------------------------------------------------------")
+
+		input("wcisnij enter aby kontynuowac")
+		menu()
+
+	elif case == 7:
+		os.system('cls')
+		os.system('clear')
+		print("Wymagania: \n 1. Adb i Fastboot poprawnie zainstalowane \n 2. Plik twrp.img znajdujący się w katalogu ze skrptem \n 3. Python w wersji 3 \n 4. Odblokowany bootloader")
+
+		input("wcisnij enter aby kontynuowac")
+		menu()
+	elif case == 8:
+		os.system('cls')
+		os.system('clear')
+
+		input("wcisnij enter aby kontynuowac")
+		menu()
+	elif case == 9:
+		os.system('cls')
+		os.system('clear')
+
+		input("wcisnij enter aby kontynuowac")
+		menu()
+
 	else:
 		os.system("cls")
 		os.system("clear")
 		print("Wybierz poprawną opcję!\n")
 
+		input("wcisnij enter aby kontynuowac")
 		menu()
 
-os.system('cls')
-os.system('clear')
+
 
 menu()
