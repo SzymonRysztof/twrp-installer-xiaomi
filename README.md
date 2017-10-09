@@ -11,9 +11,9 @@ Wymagany python 3 do działania!
 
 ## Instrukcja Instalacji
 
-1.Pobierz TWRP dla twojego telefonu ze strony https://twrp.me/Devices/ (Żeby poznać nazwe kodową urządzenia użyj aplikacji AIDA64 na telefonie)
-2.Zmien nazwe pliku na "twrp.img" i umieść go w tym samym katalogu co skrypt twrp_install.py
-3.Włącz debugowanie na telefonie
+1.Pobierz TWRP dla twojego telefonu ze strony https://twrp.me/Devices/ (Żeby poznać nazwe kodową urządzenia użyj aplikacji AIDA64 na telefonie)<br>
+2.Zmien nazwe pliku na "twrp.img" i umieść go w tym samym katalogu co skrypt twrp_install.py<br>
+3.Włącz debugowanie na telefonie<br>
 4.Uruchom skrypt:<br>
  a)Na linuxie najpierw trzeba nadać flage wykonywania 'chmod +x twrp_install.py'
    a następnie uruchomić jak każdy skrypt z terminala './twrp_install.py'<br>
@@ -21,5 +21,5 @@ Wymagany python 3 do działania!
 5.Wprowadź telefon w fastboot mode (można zrobić to z menu skryptu)
 
 ### Co potrafię:
--Potrafię zainstalować recovery na urządzeniach xiaomi z poziomu systemu linux
--Potrafię zresetować telefon w trybach: System, Recovery, Fastboot
+-Potrafię zainstalować recovery na urządzeniach xiaomi z poziomu systemu linux<br>
+-Potrafię zresetować telefon w trybach: System, Recovery, Fastboot<br>
