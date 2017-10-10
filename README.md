@@ -1,11 +1,11 @@
 # X.E.T Beta v0.2
 ## Xiaomi Essential Tools
 
-#PL
+# PL
 
 
-####UWAGA ja jako autor nie jestem odpowiedzialny za ŻADNE szkody
-####wyrządzone przez w.w skrypt! Używasz go na własną odpowiedzialność!
+#### UWAGA ja jako autor nie jestem odpowiedzialny za ŻADNE szkody
+#### wyrządzone przez w.w skrypt! Używasz go na własną odpowiedzialność!
 
 Zestaw narzedzi dla telefonów Xiaomi napisany w Pytonie
 
@@ -27,10 +27,10 @@ ps. Telefon powinien być w trybie fastboot jeśli chcesz instalować recvoery (
 -Potrafię zresetować telefon w trybach: System, Recovery, Fastboot<br>
 -Określić stan odblokowania Bootloadera
 
-#EN
+# EN
 
-####DISCLAIMER
-####I'm not responsible for bricked phones or dead sdcard! You do so at your own risk!
+#### DISCLAIMER
+#### I'm not responsible for bricked phones or dead sdcard! You do so at your own risk!
 
 Essential toolkit for Xiaomi's phones coded in Python
 
