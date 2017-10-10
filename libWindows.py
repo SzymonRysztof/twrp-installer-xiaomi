@@ -2,6 +2,15 @@ import os
 from sys import platform
 import time
 clear = lambda: os.system('cls')
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
 def chckfl():
     f = os.path.isfile('fastboot.exe')
     a = os.path.isfile('adb.exe')
@@ -9,22 +18,22 @@ def chckfl():
         return True
     elif f == True and a == False:
         clear()
-        print ("Nie znaleziono pliku binarnego adb w '/usr/bin'")
-        print ("Nie można dokończyć działania programu!")
+        print (bcolors.FAIL+"Nie znaleziono pliku binarnego adb w '/usr/bin'")
+        print ("Nie można dokończyć działania programu!"+bcolor.ENDC)
         exit()
     elif f == False and a == True:
         clear()
-        print ("Nie znaleziono pliku binarnego Fastboot w '/usr/bin'")
-        print ("Nie można dokończyć działania programu!")
+        print (bcolors.FAIL+"Nie znaleziono pliku binarnego Fastboot w '/usr/bin'")
+        print ("Nie można dokończyć działania programu!"+bcolor.ENDC)
         exit()
     elif f == False and a == False:
         clear()
-        print ("Nie znaleziono plików binarnych Fastboot i Adb w '/usr/bin'")
-        print ("Nie można dokończyć działania programu!")
+        print (bcolors.FAIL+"Nie znaleziono plików binarnych Fastboot i Adb w '/usr/bin'")
+        print ("Nie można dokończyć działania programu!"+bcolor.ENDC)
         exit()
     else:
         clear()
-        print ("Nieznany błąd! kończe działanie programu!")
+        print (bcolors.FAIL+"Nieznany błąd! kończe działanie programu!"+bcolor.ENDC)
         exit()
 def installWin():
     chckfl()
