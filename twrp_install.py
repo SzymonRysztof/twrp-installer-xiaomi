@@ -3,6 +3,10 @@ import os
 from sys import platform
 import time
 
+if platform == "linux" or platform == "linux2":
+    clear = os.system("clear")
+elif platform == "win32":
+    clear = os.system("cls")
 
 def bl():
 	os.system('fastboot oem device-info > results.txt 2>&1')
@@ -55,7 +59,7 @@ def chckfl():
 #Ta funckja odpowiada za proces instalacji na linuxie
 def installLinux():
 
-	os.system('clear')
+	clear
 	print ()
 	print ()
 	print ()
@@ -109,7 +113,7 @@ def installLinux():
 		print ()
 		menu()
 
-	os.system('clear')
+	clear
 	print ("Gratualcję! Możesz cieszyć się zainstalowanym TWRP")
 	exit()
 
@@ -123,8 +127,8 @@ def start():
 	else:
 		Print ("Przykro mi, na chwilę obecną wspierane systemy to: Windows i Linux")
 
-	os.system('cls')
-	os.system('clear')
+	 
+	clear
 	if sys == "l":
 		chckfl()
 		if chckfl() is True:
@@ -145,8 +149,8 @@ def start():
 
 #Menu głowne programu!
 def menu():
-	os.system('cls')
-	os.system('clear')
+	 
+	clear
 	print ("--------------------------------------------------------------------------------------------------------")
 	print ("|                                                                                                      |")
 	print ("| Witaj, ten prosty skrypt przeprowadzi Cię przez proces instalacji Recovery na twoim telefonie XIAOMI |")
@@ -189,8 +193,8 @@ def menu():
 		print("")
 		menu()
 	elif case == 6:
-		os.system('cls')
-		os.system('clear')
+		 
+		clear
 		print ("--------------------------------------------------------------------------------------------------------")
 		print ("Status odblokowanie twojego bootloader to:                                                              ")
 		bl()
@@ -200,28 +204,27 @@ def menu():
 		menu()
 
 	elif case == 7:
-		os.system('cls')
-		os.system('clear')
+		 
+		clear
 		print("Wymagania: \n 1. Adb i Fastboot poprawnie zainstalowane \n 2. Plik twrp.img znajdujący się w katalogu ze skrptem \n 3. Python w wersji 3 \n 4. Odblokowany bootloader")
 
 		input("wcisnij enter aby kontynuowac")
 		menu()
 	elif case == 8:
-		os.system('cls')
-		os.system('clear')
+		 
+		clear
 
 		input("wcisnij enter aby kontynuowac")
 		menu()
 	elif case == 9:
-		os.system('cls')
-		os.system('clear')
+		 
+		clear
 
 		input("wcisnij enter aby kontynuowac")
 		menu()
 
 	else:
-		os.system("cls")
-		os.system("clear")
+		clear
 		print("Wybierz poprawną opcję!\n")
 
 		input("wcisnij enter aby kontynuowac")
