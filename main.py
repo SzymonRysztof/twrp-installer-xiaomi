@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 import os
 from sys import platform
-from liblinux import installLinux
-#import windows
+from libLinux import installLinux
+from libWindows import installWin
 import time
 if platform == "linux" or platform == "linux2":
 	clear = lambda: os.system('clear')
@@ -85,8 +85,8 @@ def menu():
 	if case == 1:
 		if platform == "linux" or platform == "linux2":
 			installLinux()
-	    #elif platform == "win32":
-	        #installWin()
+		elif platform == "win32":
+			installWin()
 	elif case == 2:
 		rbMenu()
 	elif case == 3:
