@@ -11,34 +11,39 @@ class bcolors:
     ENDC = '\033[0m'
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
+sPath = os.path.abspath(__file__)
 def chckfl():
-    f = os.path.isfile('fastboot.exe')
-    a = os.path.isfile('adb.exe')
+
+    f = os.path.isfile(os.path.dirname(sPath) + os.sep + "fastboot.exe")
+    a = os.path.isfile(os.path.dirname(sPath) + os.sep + "adb.exe")
+
     if f == True and a == True:
         return True
     elif f == True and a == False:
         clear()
-        print (bcolors.FAIL+"Nie znaleziono pliku binarnego adb w '/usr/bin'")
-        print ("Nie można dokończyć działania programu!"+bcolor.ENDC)
+        print (bcolors.FAIL+"Nie znaleziono pliku binarnego adb w katalogu skryptu")
+        print ("Nie można dokończyć działania programu!"+bcolors.ENDC)
         exit()
     elif f == False and a == True:
         clear()
-        print (bcolors.FAIL+"Nie znaleziono pliku binarnego Fastboot w '/usr/bin'")
-        print ("Nie można dokończyć działania programu!"+bcolor.ENDC)
+        print (bcolors.FAIL+"Nie znaleziono pliku binarnego Fastboot w katalogu skryptu")
+        print ("Nie można dokończyć działania programu!"+bcolors.ENDC)
         exit()
     elif f == False and a == False:
         clear()
-        print (bcolors.FAIL+"Nie znaleziono plików binarnych Fastboot i Adb w '/usr/bin'")
-        print ("Nie można dokończyć działania programu!"+bcolor.ENDC)
+        print (bcolors.FAIL+"Nie znaleziono plików binarnych Fastboot i Adb w katalogu skryptu")
+        print ("Nie można dokończyć działania programu!"+bcolors.ENDC)
         exit()
     else:
         clear()
-        print (bcolors.FAIL+"Nieznany błąd! kończe działanie programu!"+bcolor.ENDC)
+        print (bcolors.FAIL+"Nieznany błąd! kończe działanie programu!"+bcolors.ENDC)
         exit()
+
 def installWin():
     chckfl()
+    time.sleep(5)
     clear()
-    twrpE = os.path.isfile('twrp.img')
+    twrpE = os.path.isfile(os.path.dirname(sPath)+os.sep +"twrp.img")
     if twrpE == True:
         clear()
         os.system('fastboot devices')
