@@ -8,8 +8,10 @@ import time
 
 if platform == "linux" or platform == "linux2":
 	clear = lambda: os.system('clear')
+	s = "l"
 elif platform == "win32":
 	clear = lambda: os.system('cls')
+	s = "w"
 def bl():
 	os.system('fastboot oem device-info > results.txt 2>&1')
 	bl = open('results.txt', 'r').read()
@@ -99,7 +101,10 @@ def menu():
 		menu()
 	elif case == 4:
 		clear()
-		print("Requirements: \n 1a. Adb and Fastboot installed (for linux) \n 1b. Adb and Fastboot exe in script directory (for windows)\n 2. twrp.img file in script directory (only if u want to install recovery) \n 3. Python version 3 \n 4. Bootloader unlocked")
+		if s == "l":
+			print("You have to install adb and fastboot package, in debian family you will propably just have to apt-get install, not sure about other distros\nAlso you have to make sure that your fastboot and adb is in /usr/bin/ \nYou can check it with whereis command")
+		elif s=="w":
+			print("You have to install minimal adb and fastboot with option system wide, thats it you should be good to go")
 		input("push enter to continue")
 		menu()
 	elif case == 5:
