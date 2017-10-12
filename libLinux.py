@@ -57,7 +57,7 @@ def installLinux():
     i = 5;
     print ("Going back to main menu in: ")
     while (i>0):
-    print (i)
-    i=i-1
-    time.sleep(1)
+        print (i)
+        i=i-1
+        time.sleep(1)
     os.system('./main.py')
