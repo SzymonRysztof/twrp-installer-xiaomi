@@ -11,19 +11,15 @@
 
 Zestaw narzedzi dla telefonów Xiaomi napisany w Pytonie
 
-Wymagany python 3 do działania
-dodatkowo na windowsie potrzebujemy zainstalować "adb and fastboot 15s installer"
+### Instalacja
 
-## Instrukcja Instalacji
-
-1.Pobierz TWRP dla twojego telefonu ze strony https://twrp.me/Devices/ (Żeby poznać nazwe kodową urządzenia użyj aplikacji AIDA64 na telefonie)<br>
-2.Zmien nazwe pliku na "twrp.img" i umieść go w tym samym katalogu co skrypt twrp_install.py<br>
-3.Włącz debugowanie na telefonie<br>
-4.Uruchom skrypt:<br>
- a)Na linuxie najpierw trzeba nadać flage wykonywania 'chmod +x \*.py'
-   a następnie uruchomić jak każdy skrypt z terminala './main.py'<br>
- b)Wystarczy kliknać dwa razy na main.py <br>
-ps. Telefon powinien być w trybie fastboot jeśli chcesz instalować recvoery (Można go uruchomić z poziomu skryptu)<br>
+1. Fastboot i ADB
+  a)Na Windowsie instalujemy fastboot i adb (np. https://forum.xda-developers.com/showthread.php?t=2588979)
+  b)Na linuxie instalujemy naszym package manegerem (np. apt)
+2. Instalujemy pythona 3.6
+3. Uruchamiamy skrypt
+  a)Na Windowsie dwu klik na main.py
+  b)Na Linuxie najpier raz nadajemy uprawnienia 'chmod +x main.py' a potem każdorazowo w terminalu  ./main.py
 
 ### Co potrafię:
 -Potrafię zainstalować recovery na urządzeniach xiaomi z poziomu systemu linux<br>
@@ -41,19 +37,15 @@ ps. Telefon powinien być w trybie fastboot jeśli chcesz instalować recvoery (
 
 Essential toolkit for Xiaomi's phones coded in Python
 
-Python 3+ is required
-and for windows you will also need "adb and fastboot 15s installer"
+### Instalacja
 
-## Install
-
-1.Download TWRP for yout phone from https://twrp.me/Devices/ <br>
-2.Change file name to twrp.img (eg. TWRP-3.1.1.0-CAPRICORN.img to twrp.img) <br>
-3.Turn on USB debugging <br>
-4.Start script <br>
-  a)If you are on linux you have to add x flag to file 'chmod +x \*.py'<br>
-    and then just start it like every script './main.py'<br>
-  b)Just double click main.py <br>
-ps. Phone have to be in fastboot mode for recovery install (You can use reboot menu in script)
+1. Fastboot & ADB
+  a)On Windows we have to install adb and fastboot (eg. https://forum.xda-developers.com/showthread.php?t=2588979)
+  b)On Linux we have to use our package manager (eg. apt)
+2. Install python 3.6
+3. Run script
+  a)On Windows double click main.py
+  b)On linux, first we have to give perrmissions to script once: 'chmod +x main.py' then start script from terminal  ./main.py
 
 ### What Can i do:
 -I can install recovery for you<br>
