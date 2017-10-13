@@ -11,7 +11,8 @@
 
 Zestaw narzedzi dla telefonów Xiaomi napisany w Pytonie
 
-Wymagany python 3 do działania!
+Wymagany python 3 do działania
+dodatkowo na windowsie potrzebujemy zainstalować "adb and fastboot 15s installer"
 
 ## Instrukcja Instalacji
 
@@ -21,13 +22,16 @@ Wymagany python 3 do działania!
 4.Uruchom skrypt:<br>
  a)Na linuxie najpierw trzeba nadać flage wykonywania 'chmod +x \*.py'
    a następnie uruchomić jak każdy skrypt z terminala './main.py'<br>
- b)Windows na tę chwile POWINIEN działać, ale nie daję gwarancji ;) <br>
+ b)Wystarczy kliknać dwa razy na main.py <br>
 ps. Telefon powinien być w trybie fastboot jeśli chcesz instalować recvoery (Można go uruchomić z poziomu skryptu)<br>
 
 ### Co potrafię:
 -Potrafię zainstalować recovery na urządzeniach xiaomi z poziomu systemu linux<br>
 -Potrafię zresetować telefon w trybach: System, Recovery, Fastboot<br>
--Określić stan odblokowania Bootloadera
+-Potrafię Określić stan odblokowania Bootloadera
+-Potrafię zmienić DPI
+-Potrafię zainstalować aplikację kamery z mi mix 2
+-Potrafię odblokować opcje zmiany siatki aplikacji aż do 10x10
 
 # EN
 
@@ -37,6 +41,7 @@ ps. Telefon powinien być w trybie fastboot jeśli chcesz instalować recvoery (
 Essential toolkit for Xiaomi's phones coded in Python
 
 Python 3+ is required
+and for windows you will also need "adb and fastboot 15s installer"
 
 ## Install
 
@@ -46,10 +51,13 @@ Python 3+ is required
 4.Start script <br>
   a)If you are on linux you have to add x flag to file 'chmod +x \*.py'<br>
     and then just start it like every script './main.py'<br>
-  b)Windows SHOULD work from now, but you are on your own <br>
+  b)Just double click main.py <br>
 ps. Phone have to be in fastboot mode for recovery install (You can use reboot menu in script)
 
 ### What Can i do:
--I can install recovery for you
--I can reboot your phone to recovery, fastboot or system
--I can tell if your bootloader is unlocked or not
+-I can install recovery for you<br>
+-I can reboot your phone to recovery, fastboot or system<br>
+-I can tell if your bootloader is unlocked or not<br>
+-I can change your dpi
+-I can install mi mix 2 camera app
+-I can allow you to change your desktop grid up to 10x10

@@ -16,10 +16,10 @@ def bl():
 	os.system('fastboot oem device-info > results.txt 2>&1')
 	bl = open('results.txt', 'r').read()
 	os.remove('results.txt')
-	bl = bl[72]+bl[73]+bl[74]+bl[75]+bl[76]
-	if bl[0] == "t":
+	#bl = bl[72]+bl[73]+bl[74]+bl[75]+bl[76]
+	if bl[72] == "t":
 		bl = "Unlocked"
-	elif bl[0] == "f":
+	elif bl[72] == "f":
 		bl = "Locked"
 	print (bl)
 def dpiChanger():
@@ -51,14 +51,17 @@ def rbMenu():
 	if case==1:
 		clear()
 		os.system('adb reboot recovery')
+		os.system('adb kill-server')
 		rbMenu()
 	elif case==2:
 		clear()
 		os.system('adb reboot bootloader')
+		os.system('adb kill-server')
 		rbMenu()
 	elif case==3:
 		clear()
 		os.system('adb reboot')
+		os.system('adb kill-server')
 		rbMenu()
 	elif case==4:
 		clear()
@@ -70,13 +73,14 @@ def rbMenu():
 	else:
 		clear()
 		print ("Error you should choose right option!")
+		input("push enter to continue")
 		rbMenu()
 def sTweaksMenu():
 	clear()
 	print (bcolors.OKGREEN+"--------------------------------------------------------------------")
 	print ("| X.E.T                                                            |")
 	print ("| SYSTEM TWEEKS MENU                                               |")
-	print ("| They are all made in recovery(so you can be rootless)!           |")
+	print ("| They are all made in recovery(so you can stay rootless)!         |")
 	print ("--------------------------------------------------------------------"+bcolors.ENDC)
 	print ("|1. Build.prop backup                                              |")
 	print ("--------------------------------------------------------------------")
@@ -86,6 +90,10 @@ def sTweaksMenu():
 	print ("--------------------------------------------------------------------")
 	print ("|4. Install mix 2 camera                                           |")
 	print ("--------------------------------------------------------------------")
+	print ("|5. Install modified com.miui.home (desktop grid up to 10x10)      |")
+	print ("--------------------------------------------------------------------")
+	print ("|6. Activate Camera 2 API                                          |")
+	print ("--------------------------------------------------------------------")
 	print ("|0. Back to main menu                                              |")
 	print ("--------------------------------------------------------------------")
 	case = int(input(bcolors.OKBLUE+"choose: "+bcolors.ENDC))
@@ -94,14 +102,14 @@ def sTweaksMenu():
 		print ("Don't worry if you see error here^ this means that your system is mounted already")
 		os.system("adb shell cp /system/build.prop /system/build.prop.bak")
 		print (bcolors.OKGREEN+"Backup complete!"+bcolors.ENDC)
-		time.sleep(5)
+		input("push enter to continue")
 		sTweaksMenu()
 	elif case == 2:
 		os.system("adb shell mount /system")
 		print ("Don't worry if you see error here^ this means that your system is mounted already")
 		os.system("adb shell cp /system/build.prop.bak /system/build.prop")
 		print (bcolors.OKGREEN+"Restore complete!"+bcolors.ENDC)
-		time.sleep(5)
+		input("push enter to continue")
 		sTweaksMenu()
 	elif case == 3:
 		dpiChanger()
@@ -112,9 +120,24 @@ def sTweaksMenu():
 		os.system("adb push "+resPath+"cam.apk /system/priv-app/MiuiCamera/MiuiCamera.apk")
 		os.system("adb shell chmod 644 /system/priv-app/MiuiCamera/MiuiCamera.apk")
 		print ("Your old camera is still here, backed up, just in case")
-		time.sleep(5)
+		input("push enter to continue")
 		sTweaksMenu()
-
+	elif case == 5:
+		os.system("adb shell mount /system")
+		print ("Don't worry if you see error here^ this means that your system is mounted already")
+		os.system("adb shell mv /system/media/theme/default/com.miui.home /system/media/theme/default/com.miui.home.old")
+		os.system("adb push "+resPath+"com.miui.home /system/media/theme/default/com.miui.home")
+		os.system("adb shell chmod 644 /system/media/theme/default/com.miui.home")
+		print ("Your old com.miui.home is still here, backed up, just in case")
+		input("push enter to continue")
+		sTweaksMenu()
+	elif case == 6:
+		os.system("adb shell mount /system")
+		print ("Don't worry if you see error here^ this means that your system is mounted already")
+		os.system("adb shell \"persist.camera.HAL3.enabled=1 >> /system/build.prop\"")
+		print ("You have enabled Camera 2 API YAY!")
+		input("push enter to continue")
+		sTweaksMenu()
 	elif case==0:
 		os.system("adb kill-server")
 		clear()
@@ -122,6 +145,7 @@ def sTweaksMenu():
 	else:
 		clear()
 		print ("Error you should choose right option!")
+		input("push enter to continue")
 		sTweaksMenu()
 #Menu głowne programu!
 def menu():
