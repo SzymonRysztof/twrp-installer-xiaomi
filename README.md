@@ -13,13 +13,13 @@ Zestaw narzedzi dla telefonów Xiaomi napisany w Pytonie
 
 ### Instalacja
 
-1. Fastboot i ADB
-  a)Na Windowsie instalujemy fastboot i adb (np. https://forum.xda-developers.com/showthread.php?t=2588979)
-  b)Na linuxie instalujemy naszym package manegerem (np. apt)
-2. Instalujemy pythona 3.6
-3. Uruchamiamy skrypt
-  a)Na Windowsie dwu klik na main.py
-  b)Na Linuxie najpier raz nadajemy uprawnienia 'chmod +x main.py' a potem każdorazowo w terminalu  ./main.py
+1. Fastboot i ADB<br>
+  a)Na Windowsie instalujemy fastboot i adb (np. https://forum.xda-developers.com/showthread.php?t=2588979)<br>
+  b)Na linuxie instalujemy naszym package manegerem (np. apt)<br>
+2. Instalujemy pythona 3.6<br>
+3. Uruchamiamy skrypt<br>
+  a)Na Windowsie dwu klik na main.py<br>
+  b)Na Linuxie najpier raz nadajemy uprawnienia 'chmod +x main.py' a potem każdorazowo w terminalu  ./main.py<br>
 
 ### Co potrafię:
 -Potrafię zainstalować recovery na urządzeniach xiaomi z poziomu systemu linux<br>
@@ -39,13 +39,13 @@ Essential toolkit for Xiaomi's phones coded in Python
 
 ### Instalacja
 
-1. Fastboot & ADB
-  a)On Windows we have to install adb and fastboot (eg. https://forum.xda-developers.com/showthread.php?t=2588979)
-  b)On Linux we have to use our package manager (eg. apt)
-2. Install python 3.6
-3. Run script
-  a)On Windows double click main.py
-  b)On linux, first we have to give perrmissions to script once: 'chmod +x main.py' then start script from terminal  ./main.py
+1. Fastboot & ADB<br>
+  a)On Windows we have to install adb and fastboot (eg. https://forum.xda-developers.com/showthread.php?t=2588979)<br>
+  b)On Linux we have to use our package manager (eg. apt)<br>
+2. Install python 3.6<br>
+3. Run script<br>
+  a)On Windows double click main.py<br>
+  b)On linux, first we have to give perrmissions to script once: 'chmod +x main.py' then start script from terminal  ./main.py<br>
 
 ### What Can i do:
 -I can install recovery for you<br>
