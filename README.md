@@ -28,10 +28,11 @@ ps. Telefon powinien być w trybie fastboot jeśli chcesz instalować recvoery (
 ### Co potrafię:
 -Potrafię zainstalować recovery na urządzeniach xiaomi z poziomu systemu linux<br>
 -Potrafię zresetować telefon w trybach: System, Recovery, Fastboot<br>
--Potrafię Określić stan odblokowania Bootloadera
--Potrafię zmienić DPI
--Potrafię zainstalować aplikację kamery z mi mix 2
--Potrafię odblokować opcje zmiany siatki aplikacji aż do 10x10
+-Potrafię Określić stan odblokowania Bootloadera<br>
+-Potrafię zmienić DPI<br>
+-Potrafię zainstalować aplikację kamery z mi mix 2<br>
+-Potrafię odblokować opcje zmiany siatki aplikacji aż do 10x10<br>
+-Potrafię aktywować camera 2 api<br>
 
 # EN
 
@@ -58,6 +59,7 @@ ps. Phone have to be in fastboot mode for recovery install (You can use reboot m
 -I can install recovery for you<br>
 -I can reboot your phone to recovery, fastboot or system<br>
 -I can tell if your bootloader is unlocked or not<br>
--I can change your dpi
--I can install mi mix 2 camera app
--I can allow you to change your desktop grid up to 10x10
+-I can change your dpi<br>
+-I can install mi mix 2 camera app<br>
+-I can allow you to change your desktop grid up to 10x10<br>
+-I can activate camer 2 api<br>
