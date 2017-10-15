@@ -4,14 +4,66 @@ from sys import platform
 from libLinux import installLinux
 from libWindows import installWin, bcolors
 import time
+import urllib.request
 
-resPath = os.path.abspath(__file__)[:-8]+os.sep+"res"+os.sep
+#some variables to make this script work fine
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+resPath = os.path.abspath(os.path.dirname(__file__))+os.sep+"res"+os.sep
+filePath = os.path.abspath(os.path.dirname(__file__))+os.sep
 if platform == "linux" or platform == "linux2":
 	clear = lambda: os.system('clear')
 	s = "l"
 elif platform == "win32":
 	clear = lambda: os.system('cls')
 	s = "w"
+
+
+#all functions
+def twrpDownloader():
+	device = os.system("adb shell \"cat /system/build.prop | grep ro.product.device=\" > tmp ")
+	device = open('tmp', 'r').read()
+	open('tmp', "r").close()
+	device = device.lstrip('ro.product.device')[1:]
+	device = ''.join(device.split())
+	urllib.request.urlretrieve('http://80.211.196.53/'+device+'.img', resPath+'twrp.img')
+def mix2Cam():
+	os.system("adb shell mount /system")
+	print ("Don't worry if you see error here^ this means that your system is mounted already")
+	os.system("adb shell mv /system/priv-app/MiuiCamera/MiuiCamera.apk /system/priv-app/MiuiCamera/MiuiCamera.apk.bak")
+	isf = os.path.isfile(os.path.dirname(resPath)+os.sep +"cam.apk")
+	if isf == False:
+		print ("I nned to download camera file first, be patient pls")
+		urllib.request.urlretrieve('http://80.211.196.53/cam.apk', resPath+'cam.apk')
+	elif isf == True:
+		print ("Ok, you have camera file already!")
+	os.system("adb push "+resPath+"cam.apk /system/priv-app/MiuiCamera/MiuiCamera.apk")
+	os.system("adb shell chmod 644 /system/priv-app/MiuiCamera/MiuiCamera.apk")
+	print ("Your old camera is still here, backed up, just in case")
+	input("push enter to continue")
+	sTweaksMenu()
+def comMiuiHome():
+	os.system("adb shell mount /system")
+	print ("Don't worry if you see error here^ this means that your system is mounted already")
+	os.system("adb shell mv /system/media/theme/default/com.miui.home /system/media/theme/default/com.miui.home.old")
+	isf = os.path.isfile(os.path.dirname(resPath)+os.sep +"com.miui.home")
+	if isf == False:
+		print ("I nned to download custom home file first, be patient pls")
+		urllib.request.urlretrieve('http://80.211.196.53/home.file', resPath+'com.miui.home')
+	elif isf == True:
+		print ("Ok, you have custom home file already!")
+	os.system("adb push "+resPath+"com.miui.home /system/media/theme/default/com.miui.home")
+	os.system("adb shell chmod 644 /system/media/theme/default/com.miui.home")
+	print ("Your old com.miui.home is still here, backed up, just in case")
+	input("push enter to continue")
+	sTweaksMenu()
 def bl():
 	os.system('fastboot oem device-info > results.txt 2>&1')
 	bl = open('results.txt', 'r').read()
@@ -31,6 +83,82 @@ def dpiChanger():
 	os.system("adb kill-server")
 	input("push enter to continue")
 	sTweaksMenu()
+
+
+def twrpInstall():
+	clear()
+	os.system("adb start-server")
+	print("First, i have to download TWRP for you, make sure that your phone is turned on")
+	input("Push enter to continue")
+	device = os.system("adb shell \"cat /system/build.prop | grep ro.product.device=\" > tmp ")
+	device = open('tmp', 'r').read()
+	open('tmp', "r").close()
+	os.remove("tmp")
+	device = device.lstrip('ro.product.device')[1:]
+	device = ''.join(device.split())
+	print ("So, your device is "+device+", be patient file is now being downloaded")
+	urllib.request.urlretrieve('http://80.211.196.53/'+device+'.img', filePath+'twrp.img')
+	os.system("adb reboot bootloader")
+	time.sleep(5)
+	os.system('fastboot devices')
+	print ("Do you see your device here? (y/n): \n")
+	deviceVisible = input('');
+	deviceVisible = deviceVisible.lower()
+
+	if deviceVisible == "n":
+		clear()
+		print()
+		print ("Check connection with device")
+		print ("Phone should display MiTu rabbit \"Fixing\" android ")
+		print ("And then you can restart this program")
+		print()
+		input("Press enter to continue")
+		exit()
+
+	elif deviceVisible == "y":
+		clear()
+		print ("Great! we can go to the next step\n")
+
+	else:
+		clear()
+		print ("You have to choose (Y)es or (N)o!")
+		print()
+		twrpInstall()
+
+	os.system('fastboot boot twrp.img')
+	clear()
+	print ("\nCan you see twrp menu on your phone? (This can take some time, depending on the phone)(y/n)")
+	twrpS = input().lower()
+
+	if twrpS == "n":
+		clear()
+		print ("If you have benn waiting longer than 1min you should contact me first\n")
+		print ("For now, we are going back to main menu!")
+		input("Push enter to continue")
+		menu()
+	elif twrpS == "y":
+		print("Ok, here we go!")
+
+	else:
+		print("Wrong option!")
+		input("Push enter to continue")
+	os.system('adb reboot bootloader')
+	os.system('fastboot flash recovery twrp.img')
+	os.system('fastboot boot twrp.img')
+	print ("Please wait, +- 10s")
+	time.sleep(10)
+	os.system('adb reboot recovery')
+	clear()
+	print ("Congratulations, your TWRP is ready to rock!")
+	i = 5;
+	print ("Going back to main menu in: ")
+	while (i>0):
+		print (i)
+		i=i-1
+		time.sleep(1)
+	os.remove(resPath+'twrp.img')
+	menu()
+
 def rbMenu():
 	clear()
 	print (bcolors.OKGREEN+"--------------------------------------------------------------------")
@@ -114,23 +242,9 @@ def sTweaksMenu():
 	elif case == 3:
 		dpiChanger()
 	elif case == 4:
-		os.system("adb shell mount /system")
-		print ("Don't worry if you see error here^ this means that your system is mounted already")
-		os.system("adb shell mv /system/priv-app/MiuiCamera/MiuiCamera.apk /system/priv-app/MiuiCamera/MiuiCamera.apk.bak")
-		os.system("adb push "+resPath+"cam.apk /system/priv-app/MiuiCamera/MiuiCamera.apk")
-		os.system("adb shell chmod 644 /system/priv-app/MiuiCamera/MiuiCamera.apk")
-		print ("Your old camera is still here, backed up, just in case")
-		input("push enter to continue")
-		sTweaksMenu()
+		mix2Cam()
 	elif case == 5:
-		os.system("adb shell mount /system")
-		print ("Don't worry if you see error here^ this means that your system is mounted already")
-		os.system("adb shell mv /system/media/theme/default/com.miui.home /system/media/theme/default/com.miui.home.old")
-		os.system("adb push "+resPath+"com.miui.home /system/media/theme/default/com.miui.home")
-		os.system("adb shell chmod 644 /system/media/theme/default/com.miui.home")
-		print ("Your old com.miui.home is still here, backed up, just in case")
-		input("push enter to continue")
-		sTweaksMenu()
+		comMiuiHome()
 	elif case == 6:
 		os.system("adb shell mount /system")
 		print ("Don't worry if you see error here^ this means that your system is mounted already")
@@ -172,10 +286,8 @@ def menu():
 	print ("--------------------------------------------------------------------")
 	case = int(input(bcolors.OKBLUE+"choose: "+bcolors.ENDC))
 	if case == 1:
-		if platform == "linux" or platform == "linux2":
-			installLinux()
-		elif platform == "win32":
-			installWin()
+		os.system("adb kill-server")
+		twrpInstall()
 	elif case == 2:
 		rbMenu()
 	elif case == 3:
