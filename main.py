@@ -1,8 +1,10 @@
 #!/usr/bin/python3
 import os
 from sys import platform
+from sys import exit
 import time
 import urllib.request
+import signal
 
 #some variables to make this script work fine
 class bcolors:
@@ -23,8 +25,11 @@ elif platform == "win32":
 	clear = lambda: os.system('cls')
 	s = "w"
 
-
 #all functions
+def goodbye():
+    print ("\nThanks for using my software! check my repo \nhttps://github.com/mezutelni/twrp-installer-xiaomi \nto stay up to date!")
+    time.sleep(5)
+    exit()
 def twrpDownloader():
 	device = os.system("adb shell \"cat /system/build.prop | grep ro.product.device=\" > tmp ")
 	device = open('tmp', 'r').read()
@@ -33,12 +38,13 @@ def twrpDownloader():
 	device = ''.join(device.split())
 	urllib.request.urlretrieve('http://80.211.196.53/'+device+'.img', resPath+'twrp.img')
 def mix2Cam():
+	os.system("adb kill-server")
 	os.system("adb shell mount /system")
 	print ("Don't worry if you see error here^ this means that your system is mounted already")
 	os.system("adb shell mv /system/priv-app/MiuiCamera/MiuiCamera.apk /system/priv-app/MiuiCamera/MiuiCamera.apk.bak")
 	isf = os.path.isfile(os.path.dirname(resPath)+os.sep +"cam.apk")
 	if isf == False:
-		print ("I nned to download camera file first, be patient pls")
+		print ("I need to download camera file first, be patient pls")
 		urllib.request.urlretrieve('http://80.211.196.53/cam.apk', resPath+'cam.apk')
 	elif isf == True:
 		print ("Ok, you have camera file already!")
@@ -48,20 +54,21 @@ def mix2Cam():
 	input("push enter to continue")
 	sTweaksMenu()
 def comMiuiHome():
-	os.system("adb shell mount /system")
-	print ("Don't worry if you see error here^ this means that your system is mounted already")
-	os.system("adb shell mv /system/media/theme/default/com.miui.home /system/media/theme/default/com.miui.home.old")
-	isf = os.path.isfile(os.path.dirname(resPath)+os.sep +"com.miui.home")
-	if isf == False:
-		print ("I nned to download custom home file first, be patient pls")
-		urllib.request.urlretrieve('http://80.211.196.53/home.file', resPath+'com.miui.home')
-	elif isf == True:
-		print ("Ok, you have custom home file already!")
-	os.system("adb push "+resPath+"com.miui.home /system/media/theme/default/com.miui.home")
-	os.system("adb shell chmod 644 /system/media/theme/default/com.miui.home")
-	print ("Your old com.miui.home is still here, backed up, just in case")
-	input("push enter to continue")
-	sTweaksMenu()
+    os.system("adb kill-server")
+    os.system("adb shell mount /system")
+    print ("Don't worry if you see error here^ this means that your system is mounted already")
+    os.system("adb shell mv /system/media/theme/default/com.miui.home /system/media/theme/default/com.miui.home.old")
+    isf = os.path.isfile(os.path.dirname(resPath)+os.sep +"com.miui.home")
+    if isf == False:
+    	print ("I need to download custom home file first, be patient pls")
+    	urllib.request.urlretrieve('http://80.211.196.53/home.file', resPath+'com.miui.home')
+    elif isf == True:
+    	print ("Ok, you have custom home file already!")
+    os.system("adb push "+resPath+"com.miui.home /system/media/theme/default/com.miui.home")
+    os.system("adb shell chmod 644 /system/media/theme/default/com.miui.home")
+    print ("Your old com.miui.home is still here, backed up, just in case")
+    input("push enter to continue")
+    sTweaksMenu()
 def bl():
 	os.system('fastboot oem device-info > results.txt 2>&1')
 	bl = open('results.txt', 'r').read()
@@ -81,8 +88,6 @@ def dpiChanger():
 	os.system("adb kill-server")
 	input("push enter to continue")
 	sTweaksMenu()
-
-
 def twrpInstall():
 	clear()
 	os.system("adb start-server")
@@ -111,7 +116,7 @@ def twrpInstall():
 		print ("And then you can restart this program")
 		print()
 		input("Press enter to continue")
-		exit()
+		goodbye()
 
 	elif deviceVisible == "y":
 		clear()
@@ -157,6 +162,7 @@ def twrpInstall():
 	os.remove(resPath+'twrp.img')
 	menu()
 
+#Reboot Menu
 def rbMenu():
 	clear()
 	print (bcolors.OKGREEN+"--------------------------------------------------------------------")
@@ -201,6 +207,7 @@ def rbMenu():
 		print ("Error you should choose right option!")
 		input("push enter to continue")
 		rbMenu()
+#System Tweaks Menu
 def sTweaksMenu():
 	clear()
 	print (bcolors.OKGREEN+"--------------------------------------------------------------------")
@@ -259,7 +266,7 @@ def sTweaksMenu():
 		print ("Error you should choose right option!")
 		input("push enter to continue")
 		sTweaksMenu()
-#Menu głowne programu!
+#Main Menu
 def menu():
 	clear()
 	print (bcolors.OKGREEN+"--------------------------------------------------------------------")
@@ -318,10 +325,12 @@ def menu():
 		input("push enter to continue")
 		menu()
 	elif case == 0:
-		exit()
+		goodbye()
 	else:
 		clear()
 		print("Error choose right option\n")
 		input("push enter to continue")
 		menu()
 menu()
+#ctrl+c handler
+signal.signal(signal.SIGINT, lambda number, frame: goodbye())

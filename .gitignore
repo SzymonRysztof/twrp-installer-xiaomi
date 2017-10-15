@@ -2,3 +2,4 @@
 twrp\.img
 *.pyc
 test.py
+res/*
