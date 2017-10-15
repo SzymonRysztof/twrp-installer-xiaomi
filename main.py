@@ -1,8 +1,6 @@
 #!/usr/bin/python3
 import os
 from sys import platform
-from libLinux import installLinux
-from libWindows import installWin, bcolors
 import time
 import urllib.request
 
