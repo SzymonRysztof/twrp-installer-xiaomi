@@ -37,7 +37,7 @@ Zestaw narzedzi dla telefonów Xiaomi napisany w Pytonie
 
 Essential toolkit for Xiaomi's phones coded in Python
 
-### Instalacja
+### Installation
 
 1. Fastboot & ADB<br>
   a)On Windows we have to install adb and fastboot (eg. https://forum.xda-developers.com/showthread.php?t=2588979)<br>
