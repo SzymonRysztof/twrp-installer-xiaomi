@@ -36,7 +36,7 @@ def twrpDownloader():
 	open('tmp', "r").close()
 	device = device.lstrip('ro.product.device')[1:]
 	device = ''.join(device.split())
-	urllib.request.urlretrieve('http://80.211.196.53/'+device+'.img', resPath+'twrp.img')
+	urllib.request.urlretrieve('http://80.211.196.53/twrps/'+device+'.img', resPath+'twrp.img')
 def mix2Cam():
 	os.system("adb kill-server")
 	os.system("adb shell mount /system")
