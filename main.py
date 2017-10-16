@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 import os
-from sys import platform
-from sys import exit
+import sys
 import time
 import urllib.request
 import signal
@@ -18,25 +17,26 @@ class bcolors:
     UNDERLINE = '\033[4m'
 resPath = os.path.abspath(os.path.dirname(__file__))+os.sep+"res"+os.sep
 filePath = os.path.abspath(os.path.dirname(__file__))+os.sep
-if platform == "linux" or platform == "linux2":
+if sys.platform == "linux" or sys.platform == "linux2":
 	clear = lambda: os.system('clear')
 	s = "l"
-elif platform == "win32":
+elif sys.platform == "win32":
 	clear = lambda: os.system('cls')
 	s = "w"
 
+
+supported_devices=["aries","cancro","capricorn","dior","ferrari","gemini","helium","hennessy","hermes","hydrogen","ido","kate","kenzo","land","libra","lithium","mido","mocha","natrium","rolex","sagit","santoni"]
 #all functions
 def goodbye():
     print ("\nThanks for using my software! check my repo \nhttps://github.com/mezutelni/twrp-installer-xiaomi \nto stay up to date!")
     time.sleep(5)
-    exit()
-def twrpDownloader():
-	device = os.system("adb shell \"cat /system/build.prop | grep ro.product.device=\" > tmp ")
-	device = open('tmp', 'r').read()
-	open('tmp', "r").close()
-	device = device.lstrip('ro.product.device')[1:]
-	device = ''.join(device.split())
-	urllib.request.urlretrieve('http://80.211.196.53/twrps/'+device+'.img', resPath+'twrp.img')
+    sys.exit()
+"""def twrpDownloader():
+    device = os.system("adb shell \"cat /system/build.prop | grep ro.product.device=\" > tmp ")
+    device = open('tmp', 'r').read()
+    open('tmp', "r").close()
+    device = device.lstrip('ro.product.device')[1:]
+    device = ''.join(device.split())"""
 def mix2Cam():
 	os.system("adb kill-server")
 	os.system("adb shell mount /system")
@@ -89,78 +89,95 @@ def dpiChanger():
 	input("push enter to continue")
 	sTweaksMenu()
 def twrpInstall():
-	clear()
-	os.system("adb start-server")
-	print("First, i have to download TWRP for you, make sure that your phone is turned on")
-	input("Push enter to continue")
-	device = os.system("adb shell \"cat /system/build.prop | grep ro.product.device=\" > tmp ")
-	device = open('tmp', 'r').read()
-	open('tmp', "r").close()
-	os.remove("tmp")
-	device = device.lstrip('ro.product.device')[1:]
-	device = ''.join(device.split())
-	print ("So, your device is "+device+", be patient file is now being downloaded")
-	urllib.request.urlretrieve('http://80.211.196.53/'+device+'.img', filePath+'twrp.img')
-	os.system("adb reboot bootloader")
-	time.sleep(5)
-	os.system('fastboot devices')
-	print ("Do you see your device here? (y/n): \n")
-	deviceVisible = input('');
-	deviceVisible = deviceVisible.lower()
+    clear()
+    os.system("adb start-server")
+    print("First, i have to download TWRP for you, make sure that your phone is turned on")
+    input("Push enter to continue")
+    device = os.system("adb shell \"cat /system/build.prop | grep ro.product.device=\" > tmp ")
+    device = open('tmp', 'r').read()
+    open('tmp', "r").close()
+    os.remove("tmp")
+    device = device.lstrip('ro.product.device')[1:]
+    device = ''.join(device.split())
+    tf = 0
+    i = 0
+    i = int(i)
+    array_length = len(supported_devices)
+    for i in range(array_length):
+        if device == supported_devices[i]:
+            tf = True
+            break
+        elif device != supported_devices[i]:
+            tf  = False
+    if tf == True:
+        urllib.request.urlretrieve('http://80.211.196.53/twrps/'+device+'.img', resPath+'twrp.img')
+    elif tf == False:
+        clear()
+        print("Sadly, there is no Official TWRP for your device so you will have to install it manually :(")
+        input("Push enter to continue")
+        menu()
+    print ("So, your device is "+device+", be patient file is now being downloaded")
+    urllib.request.urlretrieve('http://80.211.196.53/twrps/'+device+'.img', filePath+'twrp.img')
+    os.system("adb reboot bootloader")
+    time.sleep(5)
+    os.system('fastboot devices')
+    print ("Do you see your device here? (y/n): \n")
+    deviceVisible = input('');
+    deviceVisible = deviceVisible.lower()
 
-	if deviceVisible == "n":
-		clear()
-		print()
-		print ("Check connection with device")
-		print ("Phone should display MiTu rabbit \"Fixing\" android ")
-		print ("And then you can restart this program")
-		print()
-		input("Press enter to continue")
-		goodbye()
+    if deviceVisible == "n":
+    	clear()
+    	print()
+    	print ("Check connection with device")
+    	print ("Phone should display MiTu rabbit \"Fixing\" android ")
+    	print ("And then you can restart this program")
+    	print()
+    	input("Press enter to continue")
+    	goodbye()
 
-	elif deviceVisible == "y":
-		clear()
-		print ("Great! we can go to the next step\n")
+    elif deviceVisible == "y":
+    	clear()
+    	print ("Great! we can go to the next step\n")
 
-	else:
-		clear()
-		print ("You have to choose (Y)es or (N)o!")
-		print()
-		twrpInstall()
+    else:
+    	clear()
+    	print ("You have to choose (Y)es or (N)o!")
+    	print()
+    	twrpInstall()
 
-	os.system('fastboot boot twrp.img')
-	clear()
-	print ("\nCan you see twrp menu on your phone? (This can take some time, depending on the phone)(y/n)")
-	twrpS = input().lower()
+    os.system('fastboot boot twrp.img')
+    clear()
+    print ("\nCan you see twrp menu on your phone? (This can take some time, depending on the phone)(y/n)")
+    twrpS = input().lower()
 
-	if twrpS == "n":
-		clear()
-		print ("If you have benn waiting longer than 1min you should contact me first\n")
-		print ("For now, we are going back to main menu!")
-		input("Push enter to continue")
-		menu()
-	elif twrpS == "y":
-		print("Ok, here we go!")
+    if twrpS == "n":
+    	clear()
+    	print ("If you have benn waiting longer than 1min you should contact me first\n")
+    	print ("For now, we are going back to main menu!")
+    	input("Push enter to continue")
+    	menu()
+    elif twrpS == "y":
+    	print("Ok, here we go!")
 
-	else:
-		print("Wrong option!")
-		input("Push enter to continue")
-	os.system('adb reboot bootloader')
-	os.system('fastboot flash recovery twrp.img')
-	os.system('fastboot boot twrp.img')
-	print ("Please wait, +- 10s")
-	time.sleep(10)
-	os.system('adb reboot recovery')
-	clear()
-	print ("Congratulations, your TWRP is ready to rock!")
-	i = 5;
-	print ("Going back to main menu in: ")
-	while (i>0):
-		print (i)
-		i=i-1
-		time.sleep(1)
-	os.remove(resPath+'twrp.img')
-	menu()
+    else:
+    	print("Wrong option!")
+    	input("Push enter to continue")
+    os.system('adb reboot bootloader')
+    os.system('fastboot flash recovery twrp.img')
+    os.system('fastboot boot twrp.img')
+    print ("Please wait, +- 10s")
+    time.sleep(10)
+    os.system('adb reboot recovery')
+    clear()
+    print ("Congratulations, your TWRP is ready to rock!")
+    i = 5;
+    print ("Going back to main menu in: ")
+    while (i>0):
+    	print (i)
+    	i=i-1
+    	time.sleep(1)
+    os.remove(resPath+'twrp.img')
+    menu()
 
 #Reboot Menu
 def rbMenu():
