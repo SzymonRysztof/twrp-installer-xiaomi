@@ -108,7 +108,6 @@ def sideloader():
             print (bcolors.FAIL+"Wrong option, so we will stop now, if u want to continue sideloading, just re launch this option from menu"+bcolors.W)
             time.sleep(5)
             menu()
-
 def twrpInstall():
     clear()
     os.system("adb start-server")
@@ -199,7 +198,6 @@ def twrpInstall():
     	time.sleep(1)
     os.remove(resPath+'twrp.img')
     menu()
-
 #Reboot Menu
 def rbMenu():
     clear()

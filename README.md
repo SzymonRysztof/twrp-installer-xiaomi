@@ -21,14 +21,17 @@ Zestaw narzedzi dla telefonów Xiaomi napisany w Pytonie
   a)Na Windowsie dwu klik na main.py<br>
   b)Na Linuxie najpier raz nadajemy uprawnienia 'chmod +x main.py' a potem każdorazowo w terminalu  ./main.py<br>
 
-### Co potrafię:
--Potrafię zainstalować recovery na urządzeniach xiaomi z poziomu systemu linux<br>
--Potrafię zresetować telefon w trybach: System, Recovery, Fastboot<br>
--Potrafię Określić stan odblokowania Bootloadera<br>
--Potrafię zmienić DPI<br>
--Potrafię zainstalować aplikację kamery z mi mix 2<br>
--Potrafię odblokować opcje zmiany siatki aplikacji aż do 10x10<br>
--Potrafię aktywować camera 2 api<br>
+### Funkcje:
+-Pobieranie i instalacja recovery dla wspieranych urządzeń (oficjalne twrp)
+-Resetowanie telefonu do trybu fastboot, recovery, sideload, system
+-Określanie stanu bootloader (odblokowany/zablokowany)
+-Sideloadowanie paczek zip (drag and drop)
+#### Tweaki systemowe:
+-Tworzenie i przywracanie backupu build.prop
+-Zmiana DPI
+-Instalacja aplikacji kamery z Mi Mix 2(Automatyczny backup starej aplikacji w /system/priv-app/MiuiCamera/MiuiCamera.bak)
+-Odblokowanie opcji zmiany siatki pulpitu aż do 10x10 (Automatyczny backup starego pliku do /system/media/themes/default/com.miui.home.old)
+-Aktywacja camera 2 api
 
 # EN
 
@@ -47,11 +50,14 @@ Essential toolkit for Xiaomi's phones coded in Python
   a)On Windows double click main.py<br>
   b)On linux, first we have to give perrmissions to script once: 'chmod +x main.py' then start script from terminal  ./main.py<br>
 
-### What Can i do:
--I can install recovery for you<br>
--I can reboot your phone to recovery, fastboot or system<br>
--I can tell if your bootloader is unlocked or not<br>
--I can change your dpi<br>
--I can install mi mix 2 camera app<br>
--I can allow you to change your desktop grid up to 10x10<br>
--I can activate camer 2 api<br>
+### Functions:
+-Downloading and installing twrp for supported phones (this with official TWRP)
+-Rebooting phone to fastboot, recovery, sideload, system
+-Checking bootloader status (locked/unlocked)
+-Sideloading zips (drag and drop)
+#### System tweaks:
+-Backing up and restoring build.prop file
+-Changing DPI
+-Installing Mi Mix 2 camera apk (Auto backup old file to /system/priv-app/MiuiCamera/MiuiCamera.bak)
+-Installing custom grid size up to 10x10 (Auto backup old file to /system/media/themes/default/com.miui.home.old)
+-Camera 2 API activation
