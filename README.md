@@ -1,4 +1,4 @@
-# X.E.T Beta v0.2
+# X.E.T Beta v0.7
 ## Xiaomi Essential Tools
 
 <center><img src="https://github.com/mezutelni/twrp-installer-xiaomi/blob/master/xet.png"/></center>
