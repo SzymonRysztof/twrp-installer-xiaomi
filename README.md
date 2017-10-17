@@ -22,16 +22,16 @@ Zestaw narzedzi dla telefonów Xiaomi napisany w Pytonie
   b)Na Linuxie najpier raz nadajemy uprawnienia 'chmod +x main.py' a potem każdorazowo w terminalu  ./main.py<br>
 
 ### Funkcje:
--Pobieranie i instalacja recovery dla wspieranych urządzeń (oficjalne twrp)
--Resetowanie telefonu do trybu fastboot, recovery, sideload, system
--Określanie stanu bootloader (odblokowany/zablokowany)
--Sideloadowanie paczek zip (drag and drop)
+-Pobieranie i instalacja recovery dla wspieranych urządzeń (oficjalne twrp)<br>
+-Resetowanie telefonu do trybu fastboot, recovery, sideload, system<br>
+-Określanie stanu bootloader (odblokowany/zablokowany)<br>
+-Sideloadowanie paczek zip (drag and drop)<br>
 #### Tweaki systemowe:
--Tworzenie i przywracanie backupu build.prop
--Zmiana DPI
--Instalacja aplikacji kamery z Mi Mix 2(Automatyczny backup starej aplikacji w /system/priv-app/MiuiCamera/MiuiCamera.bak)
--Odblokowanie opcji zmiany siatki pulpitu aż do 10x10 (Automatyczny backup starego pliku do /system/media/themes/default/com.miui.home.old)
--Aktywacja camera 2 api
+-Tworzenie i przywracanie backupu build.prop<br>
+-Zmiana DPI<br>
+-Instalacja aplikacji kamery z Mi Mix 2(Automatyczny backup starej aplikacji w /system/priv-app/MiuiCamera/MiuiCamera.bak)<br>
+-Odblokowanie opcji zmiany siatki pulpitu aż do 10x10 (Automatyczny backup starego pliku do /system/media/themes/default/com.miui.home.old)<br>
+-Aktywacja camera 2 api<br>
 
 # EN
 
@@ -51,13 +51,13 @@ Essential toolkit for Xiaomi's phones coded in Python
   b)On linux, first we have to give perrmissions to script once: 'chmod +x main.py' then start script from terminal  ./main.py<br>
 
 ### Functions:
--Downloading and installing twrp for supported phones (this with official TWRP)
--Rebooting phone to fastboot, recovery, sideload, system
--Checking bootloader status (locked/unlocked)
--Sideloading zips (drag and drop)
+-Downloading and installing twrp for supported phones (this with official TWRP)<br>
+-Rebooting phone to fastboot, recovery, sideload, system<br>
+-Checking bootloader status (locked/unlocked)<br>
+-Sideloading zips (drag and drop)<br>
 #### System tweaks:
--Backing up and restoring build.prop file
--Changing DPI
--Installing Mi Mix 2 camera apk (Auto backup old file to /system/priv-app/MiuiCamera/MiuiCamera.bak)
--Installing custom grid size up to 10x10 (Auto backup old file to /system/media/themes/default/com.miui.home.old)
--Camera 2 API activation
+-Backing up and restoring build.prop file<br>
+-Changing DPI<br>
+-Installing Mi Mix 2 camera apk (Auto backup old file to /system/priv-app/MiuiCamera/MiuiCamera.bak)<br>
+-Installing custom grid size up to 10x10 (Auto backup old file to /system/media/themes/default/com.miui.home.old)<br>
+-Camera 2 API activation<br>
