@@ -5,18 +5,20 @@ import time
 import urllib.request
 import signal
 
-#some variables to make this script work fine
+#Thanks to stack overflow!
 class bcolors:
     HEADER = '\033[95m'
-    OKBLUE = '\033[94m'
-    OKGREEN = '\033[92m'
-    WARNING = '\033[93m'
+    BL = '\033[94m'
+    GR = '\033[92m'
+    WARN = '\033[93m'
     FAIL = '\033[91m'
-    ENDC = '\033[0m'
+    W = '\033[0m'
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
+#this is path to /res/ folder and to .py file
 resPath = os.path.abspath(os.path.dirname(__file__))+os.sep+"res"+os.sep
 filePath = os.path.abspath(os.path.dirname(__file__))+os.sep
+#here i'm checking wchich os you are using and setting command to clear cmd/terminal window
 if sys.platform == "linux" or sys.platform == "linux2":
 	clear = lambda: os.system('clear')
 	s = "l"
@@ -24,9 +26,9 @@ elif sys.platform == "win32":
 	clear = lambda: os.system('cls')
 	s = "w"
 
-
+#this is list of devices with official twrp support
 supported_devices=["aries","cancro","capricorn","dior","ferrari","gemini","helium","hennessy","hermes","hydrogen","ido","kate","kenzo","land","libra","lithium","mido","mocha","natrium","rolex","sagit","santoni"]
-#all functions
+#Here are all functions that i'm using below (not all options in menu are functions)
 def goodbye():
     print ("\nThanks for using my software! check my repo \nhttps://github.com/mezutelni/twrp-installer-xiaomi \nto stay up to date!")
     time.sleep(5)
@@ -84,10 +86,29 @@ def dpiChanger():
 	print ("Make sure that you made a build.prop backup! just in case")
 	dpi = input("Tell me what is your desired dpi: ")
 	os.system("adb shell \"echo \\\"ro.sf.lcd_density = "+dpi+"\\\" >> /system/build.prop\"")
-	print ("Dpi has been changed!"+bcolors.ENDC)
+	print ("Dpi has been changed!"+bcolors.W)
 	os.system("adb kill-server")
 	input("push enter to continue")
 	sTweaksMenu()
+def sideloader():
+    while(True):
+        print(bcolors.WARN+"You need to be in your twrp first!"+bcolors.W)
+        os.system("adb reboot sideload")
+        input("Push enter after twrp is rebooted ")
+        sideloadFile = input(bcolors.BL+"Drag and drop your file here: "+bcolors.W)
+        os.system("adb sideload "+sideloadFile)
+        ifContinue = input("Do you want to sideload next file? (y/n)")
+        ifContinue = str(ifContinue).lower()
+        if ifContinue == 'n':
+            print(bcolor.GR+"Ok, we'll go back now"+bcolors.W)
+            menu()
+        elif ifContinue =="y":
+            print(bcolors.GR+"Ok! so here we go again"+bcolors.W)
+        else:
+            print (bcolors.FAIL+"Wrong option, so we will stop now, if u want to continue sideloading, just re launch this option from menu"+bcolors.W)
+            time.sleep(5)
+            menu()
+
 def twrpInstall():
     clear()
     os.system("adb start-server")
@@ -141,7 +162,7 @@ def twrpInstall():
 
     else:
     	clear()
-    	print ("You have to choose (Y)es or (N)o!")
+    	print (bcolors.FAIL+"You have to choose (Y)es or (N)o!"+bcolors.W)
     	print()
     	twrpInstall()
 
@@ -160,7 +181,7 @@ def twrpInstall():
     	print("Ok, here we go!")
 
     else:
-    	print("Wrong option!")
+    	print(bcolors.FAIL+"Wrong option!"+bcolors.W)
     	input("Push enter to continue")
     os.system('adb reboot bootloader')
     os.system('fastboot flash recovery twrp.img')
@@ -181,173 +202,191 @@ def twrpInstall():
 
 #Reboot Menu
 def rbMenu():
-	clear()
-	print (bcolors.OKGREEN+"--------------------------------------------------------------------")
-	print ("| X.E.T                                                            |")
-	print ("| REBOOT MENU                                                      |")
-	print ("--------------------------------------------------------------------"+bcolors.ENDC)
-	print ("|1. Reboot to recovery (via ADB)                                   |")
-	print ("--------------------------------------------------------------------")
-	print ("|2. Reboot to fastboot (via ADB)                                   |")
-	print ("--------------------------------------------------------------------")
-	print ("|3. Reboot to system (via ADB)                                     |")
-	print ("--------------------------------------------------------------------")
-	print ("|4. Reboot to system (via Fastboot)                                |")
-	print ("--------------------------------------------------------------------")
-	print ("|0. Back to main menu                                              |")
-	print ("--------------------------------------------------------------------")
-	case = int(input(bcolors.OKBLUE+"choose: "+bcolors.ENDC))
-	if case==1:
-		clear()
-		os.system('adb reboot recovery')
-		os.system('adb kill-server')
-		rbMenu()
-	elif case==2:
-		clear()
-		os.system('adb reboot bootloader')
-		os.system('adb kill-server')
-		rbMenu()
-	elif case==3:
-		clear()
-		os.system('adb reboot')
-		os.system('adb kill-server')
-		rbMenu()
-	elif case==4:
-		clear()
-		os.system('fastboot reboot')
-		menu()
-	elif case==0:
-		clear()
-		menu()
-	else:
-		clear()
-		print ("Error you should choose right option!")
-		input("push enter to continue")
-		rbMenu()
+    clear()
+    print (bcolors.GR+"--------------------------------------------------------------------")
+    print ("| X.E.T                                                            |")
+    print ("| REBOOT MENU                                                      |")
+    print ("--------------------------------------------------------------------"+bcolors.W)
+    print ("|1. Reboot to recovery (via ADB)                                   |")
+    print ("--------------------------------------------------------------------")
+    print ("|2. Reboot to fastboot (via ADB)                                   |")
+    print ("--------------------------------------------------------------------")
+    print ("|3. Reboot to system (via ADB)                                     |")
+    print ("--------------------------------------------------------------------")
+    print ("|4. Reboot to system (via Fastboot)                                |")
+    print ("--------------------------------------------------------------------")
+    print ("|5. Reboot to adb-sideload (via adb; root is needed)               |")
+    print ("--------------------------------------------------------------------")
+    print ("|0. Back to main menu                                              |")
+    print ("--------------------------------------------------------------------")
+    case = int(input(bcolors.BL+"choose: "+bcolors.W))
+    if case==1:
+        clear()
+        os.system('adb reboot recovery')
+        os.system('adb kill-server')
+        rbMenu()
+    elif case==2:
+        clear()
+        os.system('adb reboot bootloader')
+        os.system('adb kill-server')
+        rbMenu()
+    elif case==3:
+        clear()
+        os.system('adb reboot')
+        os.system('adb kill-server')
+        rbMenu()
+    elif case==4:
+        clear()
+        os.system('fastboot reboot')
+        menu()
+    elif case==5:
+        clear()
+        os.system('adb reboot sideload')
+        menu()
+    elif case==0:
+        clear()
+        menu()
+    else:
+        clear()
+        print (bcolors.FAIL+"Error you should choose right option!"+bcolors.W)
+        input("push enter to continue")
+        rbMenu()
 #System Tweaks Menu
 def sTweaksMenu():
-	clear()
-	print (bcolors.OKGREEN+"--------------------------------------------------------------------")
-	print ("| X.E.T                                                            |")
-	print ("| SYSTEM TWEEKS MENU                                               |")
-	print ("| They are all made in recovery(so you can stay rootless)!         |")
-	print ("--------------------------------------------------------------------"+bcolors.ENDC)
-	print ("|1. Build.prop backup                                              |")
-	print ("--------------------------------------------------------------------")
-	print ("|2. Build.prop restore                                             |")
-	print ("--------------------------------------------------------------------")
-	print ("|3. Change DPI                                                     |")
-	print ("--------------------------------------------------------------------")
-	print ("|4. Install mix 2 camera                                           |")
-	print ("--------------------------------------------------------------------")
-	print ("|5. Install modified com.miui.home (desktop grid up to 10x10)      |")
-	print ("--------------------------------------------------------------------")
-	print ("|6. Activate Camera 2 API                                          |")
-	print ("--------------------------------------------------------------------")
-	print ("|0. Back to main menu                                              |")
-	print ("--------------------------------------------------------------------")
-	case = int(input(bcolors.OKBLUE+"choose: "+bcolors.ENDC))
-	if case == 1:
-		os.system("adb shell mount /system")
-		print ("Don't worry if you see error here^ this means that your system is mounted already")
-		os.system("adb shell cp /system/build.prop /system/build.prop.bak")
-		print (bcolors.OKGREEN+"Backup complete!"+bcolors.ENDC)
-		input("push enter to continue")
-		sTweaksMenu()
-	elif case == 2:
-		os.system("adb shell mount /system")
-		print ("Don't worry if you see error here^ this means that your system is mounted already")
-		os.system("adb shell cp /system/build.prop.bak /system/build.prop")
-		print (bcolors.OKGREEN+"Restore complete!"+bcolors.ENDC)
-		input("push enter to continue")
-		sTweaksMenu()
-	elif case == 3:
-		dpiChanger()
-	elif case == 4:
-		mix2Cam()
-	elif case == 5:
-		comMiuiHome()
-	elif case == 6:
-		os.system("adb shell mount /system")
-		print ("Don't worry if you see error here^ this means that your system is mounted already")
-		os.system("adb shell \"persist.camera.HAL3.enabled=1 >> /system/build.prop\"")
-		print ("You have enabled Camera 2 API YAY!")
-		input("push enter to continue")
-		sTweaksMenu()
-	elif case==0:
-		os.system("adb kill-server")
-		clear()
-		menu()
-	else:
-		clear()
-		print ("Error you should choose right option!")
-		input("push enter to continue")
-		sTweaksMenu()
+    clear()
+    print (bcolors.GR+"--------------------------------------------------------------------")
+    print ("| X.E.T                                                            |")
+    print ("| SYSTEM TWEEKS MENU                                               |")
+    print ("| They are all made in recovery(so you can stay rootless)!         |")
+    print ("--------------------------------------------------------------------"+bcolors.W)
+    print ("|1. Build.prop backup                                              |")
+    print ("--------------------------------------------------------------------")
+    print ("|2. Build.prop restore                                             |")
+    print ("--------------------------------------------------------------------")
+    print ("|3. Change DPI                                                     |")
+    print ("--------------------------------------------------------------------")
+    print ("|4. Install mix 2 camera                                           |")
+    print ("--------------------------------------------------------------------")
+    print ("|5. Install modified com.miui.home (desktop grid up to 10x10)      |")
+    print ("--------------------------------------------------------------------")
+    print ("|6. Activate Camera 2 API                                          |")
+    print ("--------------------------------------------------------------------")
+    print ("|0. Back to main menu                                              |")
+    print ("--------------------------------------------------------------------")
+    case = int(input(bcolors.BL+"choose: "+bcolors.W))
+    if case == 1:
+        clear()
+        os.system("adb shell mount /system")
+        print ("Don't worry if you see error here^ this means that your system is mounted already")
+        os.system("adb shell cp /system/build.prop /system/build.prop.bak")
+        print (bcolors.GR+"Backup complete!"+bcolors.W)
+        input("push enter to continue")
+        sTweaksMenu()
+    elif case == 2:
+        clear()
+        os.system("adb shell mount /system")
+        print ("Don't worry if you see error here^ this means that your system is mounted already")
+        os.system("adb shell cp /system/build.prop.bak /system/build.prop")
+        print (bcolors.GR+"Restore complete!"+bcolors.W)
+        input("push enter to continue")
+        sTweaksMenu()
+    elif case == 3:
+        clear()
+        dpiChanger()
+    elif case == 4:
+        clear()
+        mix2Cam()
+    elif case == 5:
+        clear()
+        comMiuiHome()
+    elif case == 6:
+        clear()
+        os.system("adb shell mount /system")
+        print ("Don't worry if you see error here^ this means that your system is mounted already")
+        os.system("adb shell \"persist.camera.HAL3.enabled=1 >> /system/build.prop\"")
+        print ("You have enabled Camera 2 API YAY!")
+        input("push enter to continue")
+        sTweaksMenu()
+    elif case==0:
+        os.system("adb kill-server")
+        clear()
+        menu()
+    else:
+        clear()
+        print (bcolors.FAIL+"Error you should choose right option!"+bcolors.W)
+        input("push enter to continue")
+        sTweaksMenu()
 #Main Menu
 def menu():
-	clear()
-	print (bcolors.OKGREEN+"--------------------------------------------------------------------")
-	print ("| X.E.T                                                            |")
-	print ("| Xiaomi Essential Tools                                           |")
-	print ("--------------------------------------------------------------------"+bcolors.ENDC)
-	print ("|1. Install Recovery                                               |")
-	print ("--------------------------------------------------------------------")
-	print ("|2. Reboot menu                                                    |")
-	print ("--------------------------------------------------------------------")
-	print ("|3. Check bootloader status (locked/unlocked)                      |")
-	print ("--------------------------------------------------------------------")
-	print ("|4. System tweaks                                                  |")
-	print ("--------------------------------------------------------------------")
-	print ("|7. Requirements                                                   |")
-	print ("--------------------------------------------------------------------")
-	print ("|8. About me                                                       |")
-	print ("--------------------------------------------------------------------")
-	print ("|9. Contact                                                        |")
-	print ("--------------------------------------------------------------------")
-	print ("|0. Exit                                                           |")
-	print ("--------------------------------------------------------------------")
-	case = int(input(bcolors.OKBLUE+"choose: "+bcolors.ENDC))
-	if case == 1:
-		os.system("adb kill-server")
-		twrpInstall()
-	elif case == 2:
-		rbMenu()
-	elif case == 3:
-		clear()
-		print ("--------------------------------------------------------------------")
-		print ("Your bootloader status is: ")
-		bl()
-		print ("--------------------------------------------------------------------")
-		input("push enter to continue")
-		menu()
-	elif case == 4:
-		sTweaksMenu()
-	elif case == 7:
-		clear()
-		if s == "l":
-			print("You have to install adb and fastboot package, in debian family you will propably just have to apt-get install, not sure about other distros\nAlso you have to make sure that your fastboot and adb is in /usr/bin/ \nYou can check it with whereis command")
-		elif s=="w":
-			print("You have to install minimal adb and fastboot with option system wide, thats it you should be good to go")
-		input("push enter to continue")
-		menu()
-	elif case == 8:
-		clear()
-		print ("Script created by Mezutelni\n")
-		print ("https://github.com/mezutelni/twrp-installer-xiaomi \n")
-		input("push enter to continue")
-		menu()
-	elif case == 9:
-		clear()
-		print ("|My contact e-mail: \n----------------------------\n|mezutelni@gmail.com \n----------------------------\n|feel free to send me some feedback!\n")
-		input("push enter to continue")
-		menu()
-	elif case == 0:
-		goodbye()
-	else:
-		clear()
-		print("Error choose right option\n")
-		input("push enter to continue")
-		menu()
+    clear()
+    print (bcolors.GR+"--------------------------------------------------------------------")
+    print ("| X.E.T                                                            |")
+    print ("| Xiaomi Essential Tools                                           |")
+    print ("--------------------------------------------------------------------"+bcolors.W)
+    print ("|1. Install Recovery                                               |")
+    print ("--------------------------------------------------------------------")
+    print ("|2. Reboot menu                                                    |")
+    print ("--------------------------------------------------------------------")
+    print ("|3. Check bootloader status (locked/unlocked)                      |")
+    print ("--------------------------------------------------------------------")
+    print ("|4. System tweaks                                                  |")
+    print ("--------------------------------------------------------------------")
+    print ("|5. ADB sideloader                                                 |")
+    print ("--------------------------------------------------------------------")
+    print ("|7. Requirements                                                   |")
+    print ("--------------------------------------------------------------------")
+    print ("|8. About me                                                       |")
+    print ("--------------------------------------------------------------------")
+    print ("|9. Contact                                                        |")
+    print ("--------------------------------------------------------------------")
+    print ("|0. Exit                                                           |")
+    print ("--------------------------------------------------------------------")
+    case = int(input(bcolors.BL+"choose: "+bcolors.W))
+    if case == 1:
+    	os.system("adb kill-server")
+    	twrpInstall()
+    elif case == 2:
+    	rbMenu()
+    elif case == 3:
+    	clear()
+    	print ("--------------------------------------------------------------------")
+    	print ("Your bootloader status is: ")
+    	bl()
+    	print ("--------------------------------------------------------------------")
+    	input("push enter to continue")
+    	menu()
+    elif case == 4:
+    	sTweaksMenu()
+    elif case == 5:
+        os.system("adb kill-server")
+        clear()
+        sideloader()
+    elif case == 7:
+    	clear()
+    	if s == "l":
+    		print("You have to install adb and fastboot package, in debian family you will propably just have to apt-get install, not sure about other distros\nAlso you have to make sure that your fastboot and adb is in /usr/bin/ \nYou can check it with whereis command")
+    	elif s=="w":
+    		print("You have to install minimal adb and fastboot with option system wide, thats it you should be good to go")
+    	input("push enter to continue")
+    	menu()
+    elif case == 8:
+    	clear()
+    	print ("Script created by Mezutelni\n")
+    	print ("https://github.com/mezutelni/twrp-installer-xiaomi \n")
+    	input("push enter to continue")
+    	menu()
+    elif case == 9:
+    	clear()
+    	print ("|My contact e-mail: \n----------------------------\n|mezutelni@gmail.com \n----------------------------\n|feel free to send me some feedback!\n")
+    	input("push enter to continue")
+    	menu()
+    elif case == 0:
+    	goodbye()
+    else:
+    	clear()
+    	print(bcolors.FAIL+"Error choose right option\n"+bcolors.W)
+    	input("push enter to continue")
+    	menu()
 menu()
 #ctrl+c handler
 signal.signal(signal.SIGINT, lambda number, frame: goodbye())
