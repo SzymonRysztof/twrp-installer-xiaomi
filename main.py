@@ -31,14 +31,9 @@ supported_devices=["aries","cancro","capricorn","dior","ferrari","gemini","heliu
 #Here are all functions that i'm using below (not all options in menu are functions)
 def goodbye():
     print ("\nThanks for using my software! check my repo \nhttps://github.com/mezutelni/twrp-installer-xiaomi \nto stay up to date!")
-    time.sleep(5)
+    print (bcolors.FAIL+"Also, if you like my job consider a donation for me so i could keep focusing on X.E.T\nhttps://www.paypal.me/Mezutelni \n"+bcolors.W)
+    time.sleep(7)
     sys.exit()
-"""def twrpDownloader():
-    device = os.system("adb shell \"cat /system/build.prop | grep ro.product.device=\" > tmp ")
-    device = open('tmp', 'r').read()
-    open('tmp', "r").close()
-    device = device.lstrip('ro.product.device')[1:]
-    device = ''.join(device.split())"""
 def mix2Cam():
 	os.system("adb kill-server")
 	os.system("adb shell mount /system")
@@ -100,7 +95,8 @@ def sideloader():
         ifContinue = input("Do you want to sideload next file? (y/n)")
         ifContinue = str(ifContinue).lower()
         if ifContinue == 'n':
-            print(bcolor.GR+"Ok, we'll go back now"+bcolors.W)
+            print(bcolors.GR+"Ok, we'll go back now"+bcolors.W)
+            input("Push enter to continue")
             menu()
         elif ifContinue =="y":
             print(bcolors.GR+"Ok! so here we go again"+bcolors.W)
