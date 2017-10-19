@@ -129,9 +129,13 @@ def twrpInstall():
         urllib.request.urlretrieve('http://80.211.196.53/twrps/'+device+'.img', resPath+'twrp.img')
     elif tf == False:
         clear()
-        print("Sadly, there is no Official TWRP for your device so you will have to install it manually :(")
-        input("Push enter to continue")
-        menu()
+        print("Sadly, there is no Official TWRP for your device so you will have to download image manually :(")
+        install = input("Do you want to install downloaded image now? (Y/N)")
+        if install.lower() == "y":
+            manualTwrp()
+        else:
+            menu()
+
     print ("So, your device is "+device+", be patient file is now being downloaded")
     urllib.request.urlretrieve('http://80.211.196.53/twrps/'+device+'.img', filePath+'twrp.img')
     os.system("adb reboot bootloader")
@@ -163,7 +167,7 @@ def twrpInstall():
 
     os.system('fastboot boot twrp.img')
     clear()
-    print ("\nCan you see twrp menu on your phone? (This can take some time, depending on the phone)(y/n)")
+    print ("\nCan you see twrp menu on your phone? (This can take some time, depending on the phone\nAlso you should wait for full boot!)(y/n)")
     twrpS = input().lower()
 
     if twrpS == "n":
@@ -181,7 +185,7 @@ def twrpInstall():
     os.system('adb reboot bootloader')
     os.system('fastboot flash recovery twrp.img')
     os.system('fastboot boot twrp.img')
-    print ("Please wait, +- 10s")
+    print (bcolors.GR+"Please wait, +- 10s"+bcolors.W)
     time.sleep(10)
     os.system('adb reboot recovery')
     clear()
@@ -193,6 +197,73 @@ def twrpInstall():
     	i=i-1
     	time.sleep(1)
     os.remove(resPath+'twrp.img')
+    menu()
+def manualTwrp():
+    path = input("Drag and drop img here! ")
+    device = os.system("adb shell \"cat /system/build.prop | grep ro.product.device=\" > tmp ")
+    device = open('tmp', 'r').read()
+    open('tmp', "r").close()
+    os.remove("tmp")
+    device = device.lstrip('ro.product.device')[1:]
+    device = ''.join(device.split())
+    os.system("adb reboot bootloader")
+    time.sleep(5)
+    os.system('fastboot devices')
+    print ("Do you see your device here? (y/n): \n")
+    deviceVisible = input('');
+    deviceVisible = deviceVisible.lower()
+
+    if deviceVisible == "n":
+    	clear()
+    	print()
+    	print ("Check connection with device")
+    	print ("Phone should display MiTu rabbit \"Fixing\" android ")
+    	print ("And then you can restart this program")
+    	print()
+    	input("Press enter to continue")
+    	goodbye()
+
+    elif deviceVisible == "y":
+    	clear()
+    	print ("Great! we can go to the next step\n")
+
+    else:
+    	clear()
+    	print (bcolors.FAIL+"You have to choose (Y)es or (N)o!"+bcolors.W)
+    	print()
+    	twrpInstall()
+
+    os.system('fastboot boot '+path)
+    clear()
+    print ("\nCan you see twrp menu on your phone? (This can take some time, depending on the phone\nAlso you should wait for full boot!)(y/n)")
+    twrpS = input().lower()
+
+    if twrpS == "n":
+    	clear()
+    	print ("If you have benn waiting longer than 1min you should contact me first\n")
+    	print ("For now, we are going back to main menu!")
+    	input("Push enter to continue")
+    	menu()
+    elif twrpS == "y":
+    	print("Ok, here we go!")
+
+    else:
+    	print(bcolors.FAIL+"Wrong option!"+bcolors.W)
+    	input("Push enter to continue")
+    os.system('adb reboot bootloader')
+    os.system('fastboot flash recovery '+path)
+    os.system('fastboot boot '+path)
+    print (bcolors.GR+"Please wait, +- 10s"+bcolors.W)
+    time.sleep(10)
+    os.system('adb reboot recovery')
+    clear()
+    print ("Congratulations, your TWRP is ready to rock!")
+    i = 5;
+    print ("Going back to main menu in: ")
+    while (i>0):
+    	print (i)
+    	i=i-1
+    	time.sleep(1)
     menu()
 #Reboot Menu
 def rbMenu():
