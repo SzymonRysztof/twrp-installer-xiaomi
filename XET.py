@@ -95,13 +95,12 @@ for i in range(len(devices)):
         break
     elif glob_device != devices[i]:
         deviceN = "Device Not Connected"
-
-
 #Here are all functions that i'm using below (not all options in menu are functions)
 def goodbye():
     print (bcolors.BL+"\nThanks for using my software! check my repo \nhttps://github.com/mezutelni/twrp-installer-xiaomi \nto stay up to date!")
     print (bcolors.FAIL+"Also, if you like my job consider a donation for me so i could keep focusing on X.E.T\nhttps://www.paypal.me/Mezutelni \n"+bcolors.W)
     time.sleep(7)
+    os.system("adb kill-server")
     sys.exit()
 def mix2Cam():
 	os.system("adb kill-server")
