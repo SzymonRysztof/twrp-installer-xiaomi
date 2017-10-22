@@ -3,3 +3,4 @@ twrp\.img
 *.pyc
 test.py
 res/*
+setup.py
