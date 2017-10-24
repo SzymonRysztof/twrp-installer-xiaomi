@@ -89,7 +89,6 @@ glob_device = glob_device.lstrip('ro.product.device')[1:]
 glob_device = ''.join(glob_device.split())
 tf = 0
 i = 0
-glob_deviceN=""
 i = int(i)
 for i in range(len(devices)):
     if glob_device == devices[i]:
