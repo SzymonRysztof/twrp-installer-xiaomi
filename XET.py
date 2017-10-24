@@ -3,8 +3,10 @@ import os
 import sys
 import time
 import urllib.request
+from colorama import Fore, Back, Style, init
 #Thanks to stack overflow!
-class bcolors:
+init()
+"""class bcolors:
     HEADER = '\033[95m'
     BL = '\033[94m'
     GR = '\033[92m'
@@ -13,11 +15,10 @@ class bcolors:
     W = '\033[0m'
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
+"""
 #this is path to /res/ folder and to .py file
-#resPath = os.path.dirname(sys.executable)+os.sep+"res"+os.sep
-resPath = os.path.abspath(os.path.dirname(__file__))+os.sep+"res"+os.sep
-filePath = os.path.abspath(os.path.dirname(__file__))+os.sep
-#filePath = os.path.dirname(sys.executable)+os.sep
+resPath = os.path.dirname(sys.executable)+os.sep+"res"+os.sep
+filePath = os.path.dirname(sys.executable)+os.sep
 #here i'm checking wchich os you are using and setting command to clear cmd/terminal window
 if sys.platform == "linux" or sys.platform == "linux2":
 	clear = lambda: os.system('clear')
@@ -98,42 +99,42 @@ for i in range(len(devices)):
         deviceN = "Device Not Connected"
 #Here are all functions that i'm using below (not all options in menu are functions)
 def goodbye():
-    print (bcolors.BL+"\nThanks for using my software! check my repo \nhttps://github.com/mezutelni/twrp-installer-xiaomi \nto stay up to date!")
-    print (bcolors.FAIL+"Also, if you like my job consider a donation for me so i could keep focusing on X.E.T\nhttps://www.paypal.me/Mezutelni \n"+bcolors.W)
+    print (Fore.BLUE+"\nThanks for using my software! check my repo \nhttps://github.com/mezutelni/twrp-installer-xiaomi \nto stay up to date!")
+    print (Fore.RED+"Also, if you like my job consider a donation for me so i could keep focusing on X.E.T\nhttps://www.paypal.me/Mezutelni \n"+Style.RESET_ALL)
     time.sleep(7)
     os.system("adb kill-server")
     sys.exit()
 def mix2Cam():
 	os.system("adb kill-server")
 	os.system("adb shell mount /system")
-	print (bcolors.WARN+"Don't worry if you see error here^ this means that your system is mounted already"+bcolors.W)
+	print (Fore.YELLOW+"Don't worry if you see error here^ this means that your system is mounted already"+Style.RESET_ALL)
 	os.system("adb shell mv /system/priv-app/MiuiCamera/MiuiCamera.apk /system/priv-app/MiuiCamera/MiuiCamera.apk.bak")
 	isf = os.path.isfile(os.path.dirname(resPath)+os.sep +"cam.apk")
 	if isf == False:
-		print (bcolors.WARN+"I need to download camera file first, be patient please"+bcolors.W)
+		print (Fore.YELLOW+"I need to download camera file first, be patient please"+Style.RESET_ALL)
 		urllib.request.urlretrieve('http://80.211.196.53/cam.apk', resPath+'cam.apk')
 	elif isf == True:
-		print (bcolors.GR+"Ok, you have camera file already!"+bcolors.W)
+		print (Fore.GREEN+"Ok, you have camera file already!"+Style.RESET_ALL)
 	os.system("adb push "+resPath+"cam.apk /system/priv-app/MiuiCamera/MiuiCamera.apk")
 	os.system("adb shell chmod 644 /system/priv-app/MiuiCamera/MiuiCamera.apk")
-	print (bcolors.BL+"Your old camera is still here, backed up, just in case")
-	input("push enter to continue"+bcolors.W)
+	print (Fore.BLUE+"Your old camera is still here, backed up, just in case")
+	input("push enter to continue"+Style.RESET_ALL)
 	sTweaksMenu()
 def comMiuiHome():
     os.system("adb kill-server")
     os.system("adb shell mount /system")
-    print (bcolors.WARN+"Don't worry if you see error here^ this means that your system is mounted already"+bcolors.W)
+    print (Fore.YELLOW+"Don't worry if you see error here^ this means that your system is mounted already"+Style.RESET_ALL)
     os.system("adb shell mv /system/media/theme/default/com.miui.home /system/media/theme/default/com.miui.home.old")
     isf = os.path.isfile(os.path.dirname(resPath)+os.sep +"com.miui.home")
     if isf == False:
-    	print (bcolors.WARN+"I need to download custom home file first, be patient please"+bcolors.W)
+    	print (Fore.YELLOW+"I need to download custom home file first, be patient please"+Style.RESET_ALL)
     	urllib.request.urlretrieve('http://80.211.196.53/home.file', resPath+'com.miui.home')
     elif isf == True:
-    	print (bcolors.GR+"Ok, you have custom home file already!"+bcolors.W)
+    	print (Fore.GREEN+"Ok, you have custom home file already!"+Style.RESET_ALL)
     os.system("adb push "+resPath+"com.miui.home /system/media/theme/default/com.miui.home")
     os.system("adb shell chmod 644 /system/media/theme/default/com.miui.home")
-    print (bcolors.BL+"Your old com.miui.home is still here, backed up, just in case")
-    input("push enter to continue"+bcolors.W)
+    print (Fore.BLUE+"Your old com.miui.home is still here, backed up, just in case")
+    input("push enter to continue"+Style.RESET_ALL)
     sTweaksMenu()
 def bl():
     print ("To make this work, you have to be in fastboot mode!")
@@ -158,25 +159,25 @@ def dpiChanger():
 	print ("Make sure that you made a build.prop backup! just in case")
 	dpi = input("Tell me what is your desired dpi: ")
 	os.system("adb shell \"echo \\\"ro.sf.lcd_density = "+dpi+"\\\" >> /system/build.prop\"")
-	print ("Dpi has been changed!"+bcolors.W)
+	print ("Dpi has been changed!"+Style.RESET_ALL)
 	os.system("adb kill-server")
 	input("push enter to continue")
 	sTweaksMenu()
 def sideloader():
     while(True):
-        print(bcolors.WARN+"Due to problems with adb sideload implementation, you have to start sideload on your phone manually!"+bcolors.W)
-        sideloadFile = input(bcolors.BL+"Drag and drop your file here: "+bcolors.W)
+        print(Fore.YELLOW+"Due to problems with adb sideload implementation, you have to start sideload on your phone manually!"+Style.RESET_ALL)
+        sideloadFile = input(Fore.BLUE+"Drag and drop your file here: "+Style.RESET_ALL)
         os.system("adb sideload "+sideloadFile)
         ifContinue = input("Do you want to sideload next file? (y/n)")
         ifContinue = str(ifContinue).lower()
         if ifContinue == 'n':
-            print(bcolors.GR+"Ok, we'll go back now"+bcolors.W)
+            print(Fore.GREEN+"Ok, we'll go back now"+Style.RESET_ALL)
             input("Push enter to continue")
             menu()
         elif ifContinue =="y":
-            print(bcolors.GR+"Ok! so here we go again"+bcolors.W)
+            print(Fore.GREEN+"Ok! so here we go again"+Style.RESET_ALL)
         else:
-            print (bcolors.FAIL+"Wrong option, so we will stop now, if u want to continue sideloading, just re launch this option from menu"+bcolors.W)
+            print (Fore.RED+"Wrong option, so we will stop now, if u want to continue sideloading, just re launch this option from menu"+Style.RESET_ALL)
             time.sleep(5)
             menu()
 def twrpInstall():
@@ -235,7 +236,7 @@ def twrpInstall():
 
     else:
     	clear()
-    	print (bcolors.FAIL+"You have to choose (Y)es or (N)o!"+bcolors.W)
+    	print (Fore.RED+"You have to choose (Y)es or (N)o!"+Style.RESET_ALL)
     	print()
     	twrpInstall()
 
@@ -254,12 +255,12 @@ def twrpInstall():
     	print("Ok, here we go!")
 
     else:
-    	print(bcolors.FAIL+"Wrong option!"+bcolors.W)
+    	print(Fore.RED+"Wrong option!"+Style.RESET_ALL)
     	input("Push enter to continue")
     os.system('adb reboot bootloader')
     os.system('fastboot flash recovery twrp.img')
     os.system('fastboot boot twrp.img')
-    print (bcolors.GR+"Please wait, +- 10s"+bcolors.W)
+    print (Fore.GREEN+"Please wait, +- 10s"+Style.RESET_ALL)
     time.sleep(10)
     os.system('adb reboot recovery')
     clear()
@@ -303,7 +304,7 @@ def manualTwrp():
 
     else:
     	clear()
-    	print (bcolors.FAIL+"You have to choose (Y)es or (N)o!"+bcolors.W)
+    	print (Fore.RED+"You have to choose (Y)es or (N)o!"+Style.RESET_ALL)
     	print()
     	twrpInstall()
 
@@ -322,12 +323,12 @@ def manualTwrp():
     	print("Ok, here we go!")
 
     else:
-    	print(bcolors.FAIL+"Wrong option!"+bcolors.W)
+    	print(Fore.RED+"Wrong option!"+Style.RESET_ALL)
     	input("Push enter to continue")
     os.system('adb reboot bootloader')
     os.system('fastboot flash recovery '+path)
     os.system('fastboot boot '+path)
-    print (bcolors.GR+"Please wait, +- 10s"+bcolors.W)
+    print (Fore.GREEN+"Please wait, +- 10s"+Style.RESET_ALL)
     time.sleep(10)
     os.system('adb reboot recovery')
     clear()
@@ -342,31 +343,31 @@ def manualTwrp():
 #Reboot Menu
 def rbMenu():
     clear()
-    print (bcolors.WARN+deviceN)
-    print (bcolors.GR+"--------------------------------------------------------------------")
+    print (Fore.YELLOW+deviceN)
+    print (Fore.GREEN+"--------------------------------------------------------------------")
     print ("| X.E.T                                                            |")
     print ("| REBOOT MENU                                                      |")
     print ("| Some devices, like RN3P might have problems with reboots         |")
     print ("| from system, but reboots should work from adb/fastboot           |")
-    print ("--------------------------------------------------------------------"+bcolors.W)
-    print (bcolors.BOLD+"|1. Reboot to recovery                                             |")
-    print (bcolors.WARN+"|Reboot to recovery using ADB (so make sure to turn on debugging)  |"+bcolors.W)
-    print (bcolors.BOLD+"--------------------------------------------------------------------")
-    print (bcolors.BOLD+"|2. Reboot to fastboot                                             |")
-    print (bcolors.WARN+"|Reboot to fastboot using ADB (so make sure to turn on debugging)  |"+bcolors.W)
-    print (bcolors.BOLD+"--------------------------------------------------------------------")
-    print (bcolors.BOLD+"|3. Reboot to system                                               |")
-    print (bcolors.WARN+"|Reboot to system using ADB (so make sure to turn on debugging)    |"+bcolors.W)
-    print (bcolors.BOLD+"--------------------------------------------------------------------")
-    print (bcolors.BOLD+"|4. Reboot to system                                               |")
-    print (bcolors.WARN+"|Reboot to system using Fastboot mode!                             |"+bcolors.W)
-    print (bcolors.BOLD+"--------------------------------------------------------------------")
-    print (bcolors.BOLD+"|5. Reboot to adb-sideload                                         |")
-    print (bcolors.WARN+"|Reboot to sideload using ADB-root (so use it when in recovery)    |"+bcolors.W)
-    print (bcolors.BOLD+"--------------------------------------------------------------------")
-    print (bcolors.BOLD+"|0. Back to main menu                                              |")
-    print (bcolors.BOLD+"--------------------------------------------------------------------"+bcolors.W)
-    case = int(input(bcolors.BL+"choose: "+bcolors.W))
+    print ("--------------------------------------------------------------------"+Style.RESET_ALL)
+    print (Fore.CYAN+"|1. Reboot to recovery                                             |")
+    print (Fore.YELLOW+"|Reboot to recovery using ADB (so make sure to turn on debugging)  |"+Style.RESET_ALL)
+    print (Fore.CYAN+"--------------------------------------------------------------------")
+    print (Fore.CYAN+"|2. Reboot to fastboot                                             |")
+    print (Fore.YELLOW+"|Reboot to fastboot using ADB (so make sure to turn on debugging)  |"+Style.RESET_ALL)
+    print (Fore.CYAN+"--------------------------------------------------------------------")
+    print (Fore.CYAN+"|3. Reboot to system                                               |")
+    print (Fore.YELLOW+"|Reboot to system using ADB (so make sure to turn on debugging)    |"+Style.RESET_ALL)
+    print (Fore.CYAN+"--------------------------------------------------------------------")
+    print (Fore.CYAN+"|4. Reboot to system                                               |")
+    print (Fore.YELLOW+"|Reboot to system using Fastboot mode!                             |"+Style.RESET_ALL)
+    print (Fore.CYAN+"--------------------------------------------------------------------")
+    print (Fore.CYAN+"|5. Reboot to adb-sideload                                         |")
+    print (Fore.YELLOW+"|Reboot to sideload using ADB-root (so use it when in recovery)    |"+Style.RESET_ALL)
+    print (Fore.CYAN+"--------------------------------------------------------------------")
+    print (Fore.CYAN+"|0. Back to main menu                                              |")
+    print (Fore.CYAN+"--------------------------------------------------------------------"+Style.RESET_ALL)
+    case = int(input(Fore.BLUE+"choose: "+Style.RESET_ALL))
     if case==1:
         clear()
         os.system('adb reboot recovery')
@@ -395,44 +396,44 @@ def rbMenu():
         menu()
     else:
         clear()
-        print (bcolors.FAIL+"Error you should choose right option!"+bcolors.W)
+        print (Fore.RED+"Error you should choose right option!"+Style.RESET_ALL)
         input("push enter to continue")
         rbMenu()
 #System Tweaks Menu
 def sTweaksMenu():
     clear()
-    print (bcolors.WARN+deviceN)
-    print (bcolors.GR+"--------------------------------------------------------------------")
+    print (Fore.YELLOW+deviceN)
+    print (Fore.GREEN+"--------------------------------------------------------------------")
     print ("| X.E.T                                                            |")
     print ("| SYSTEM TWEEKS MENU                                               |")
-    print ("--------------------------------------------------------------------"+bcolors.W)
-    print (bcolors.BOLD+"|1. Build.prop backup                                              |")
-    print (bcolors.WARN+"|Use it to backup your build.prop file!                            |"+bcolors.W)
-    print (bcolors.BOLD+"--------------------------------------------------------------------")
-    print (bcolors.BOLD+"|2. Build.prop restore                                             |")
-    print (bcolors.WARN+"|Use it to restore your build.prop file!                           |"+bcolors.W)
-    print (bcolors.BOLD+"--------------------------------------------------------------------")
-    print (bcolors.BOLD+"|3. Change DPI                                                     |")
-    print (bcolors.WARN+"|For changing dpi more than once, you have to restore build.prop!  |"+bcolors.W)
-    print (bcolors.BOLD+"--------------------------------------------------------------------")
-    print (bcolors.BOLD+"|4. Install mix 2 camera                                           |")
-    print (bcolors.WARN+"|Mix 2 camera ported for all Xiaomi devices;Tested only on miui9   |"+bcolors.W)
-    print (bcolors.BOLD+"--------------------------------------------------------------------")
-    print (bcolors.BOLD+"|5. Install modified com.miui.home (desktop grid up to 10x10)      |")
-    print (bcolors.WARN+"|Miui 9 exclusive                                                  |"+bcolors.W)
-    print (bcolors.BOLD+"--------------------------------------------------------------------")
-    print (bcolors.BOLD+"|6. Activate Camera 2 API                                          |")
-    print (bcolors.WARN+"|Use it to activate cam2api in your build.prop                     |"+bcolors.W)
-    print (bcolors.BOLD+"--------------------------------------------------------------------")
-    print (bcolors.BOLD+"|0. Back to main menu                                              |")
-    print (bcolors.BOLD+"--------------------------------------------------------------------"+bcolors.W)
-    case = int(input(bcolors.BL+"choose: "+bcolors.W))
+    print ("--------------------------------------------------------------------"+Style.RESET_ALL)
+    print (Fore.CYAN+"|1. Build.prop backup                                              |")
+    print (Fore.YELLOW+"|Use it to backup your build.prop file!                            |"+Style.RESET_ALL)
+    print (Fore.CYAN+"--------------------------------------------------------------------")
+    print (Fore.CYAN+"|2. Build.prop restore                                             |")
+    print (Fore.YELLOW+"|Use it to restore your build.prop file!                           |"+Style.RESET_ALL)
+    print (Fore.CYAN+"--------------------------------------------------------------------")
+    print (Fore.CYAN+"|3. Change DPI                                                     |")
+    print (Fore.YELLOW+"|For changing dpi more than once, you have to restore build.prop!  |"+Style.RESET_ALL)
+    print (Fore.CYAN+"--------------------------------------------------------------------")
+    print (Fore.CYAN+"|4. Install mix 2 camera                                           |")
+    print (Fore.YELLOW+"|Mix 2 camera ported for all Xiaomi devices;Tested only on miui9   |"+Style.RESET_ALL)
+    print (Fore.CYAN+"--------------------------------------------------------------------")
+    print (Fore.CYAN+"|5. Install modified com.miui.home (desktop grid up to 10x10)      |")
+    print (Fore.YELLOW+"|Miui 9 exclusive                                                  |"+Style.RESET_ALL)
+    print (Fore.CYAN+"--------------------------------------------------------------------")
+    print (Fore.CYAN+"|6. Activate Camera 2 API                                          |")
+    print (Fore.YELLOW+"|Use it to activate cam2api in your build.prop                     |"+Style.RESET_ALL)
+    print (Fore.CYAN+"--------------------------------------------------------------------")
+    print (Fore.CYAN+"|0. Back to main menu                                              |")
+    print (Fore.CYAN+"--------------------------------------------------------------------"+Style.RESET_ALL)
+    case = int(input(Fore.BLUE+"choose: "+Style.RESET_ALL))
     if case == 1:
         clear()
         os.system("adb shell mount /system")
         print ("Don't worry if you see error here^ this means that your system is mounted already")
         os.system("adb shell cp /system/build.prop /system/build.prop.bak")
-        print (bcolors.GR+"Backup complete!"+bcolors.W)
+        print (Fore.GREEN+"Backup complete!"+Style.RESET_ALL)
         input("push enter to continue")
         sTweaksMenu()
     elif case == 2:
@@ -440,7 +441,7 @@ def sTweaksMenu():
         os.system("adb shell mount /system")
         print ("Don't worry if you see error here^ this means that your system is mounted already")
         os.system("adb shell cp /system/build.prop.bak /system/build.prop")
-        print (bcolors.GR+"Restore complete!"+bcolors.W)
+        print (Fore.GREEN+"Restore complete!"+Style.RESET_ALL)
         input("push enter to continue")
         sTweaksMenu()
     elif case == 3:
@@ -456,7 +457,7 @@ def sTweaksMenu():
         clear()
         os.system("adb shell mount /system")
         print ("Don't worry if you see error here^ this means that your system is mounted already")
-        os.system("adb shell \"persist.camera.HAL3.enabled=1 >> /system/build.prop\"")
+        os.system('adb shell "echo persist.camera.HAL3.enabled=1 >> /system/build.prop"')
         print ("You have enabled Camera 2 API YAY!")
         input("push enter to continue")
         sTweaksMenu()
@@ -466,41 +467,41 @@ def sTweaksMenu():
         menu()
     else:
         clear()
-        print (bcolors.FAIL+"Error you should choose right option!"+bcolors.W)
+        print (Fore.RED+"Error you should choose right option!"+Style.RESET_ALL)
         input("push enter to continue")
         sTweaksMenu()
 #Main Menu
 def menu():
     clear()
-    print (bcolors.WARN+deviceN)
-    print (bcolors.GR+"--------------------------------------------------------------------")
+    print (Fore.YELLOW+deviceN)
+    print (Fore.GREEN+"--------------------------------------------------------------------")
     print ("| X.E.T                                                            |")
     print ("| Xiaomi Essential Tools                                           |")
-    print ("--------------------------------------------------------------------"+bcolors.W)
-    print (bcolors.BOLD+"|1. Reboot menu                                                    |")
-    print (bcolors.WARN+"|Simple reboot menu, to make your life more comfortable!           |"+bcolors.W)
-    print (bcolors.BOLD+"--------------------------------------------------------------------")
-    print (bcolors.BOLD+"|2. System tweaks                                                  |")
-    print (bcolors.WARN+"|Here you can find system tweaks, they are all applied in recovery!|"+bcolors.W)
-    print (bcolors.BOLD+"--------------------------------------------------------------------")
-    print (bcolors.BOLD+"|3. Install Recovery                                               |")
-    print (bcolors.WARN+"|Use it to install recovery                                        |"+bcolors.W)
-    print (bcolors.BOLD+"--------------------------------------------------------------------")
-    print (bcolors.BOLD+"|4. Check bootloader status (locked/unlocked)                      |")
-    print (bcolors.WARN+"|You have to be in fastboot mode to make it work                   |"+bcolors.W)
-    print (bcolors.BOLD+"--------------------------------------------------------------------")
-    print (bcolors.BOLD+"|5. ADB sideloader                                                 |")
-    print (bcolors.WARN+"|Start in recovery, then use it to flash all zips you want!        |"+bcolors.W)
-    print (bcolors.BOLD+"--------------------------------------------------------------------")
-    print (bcolors.BOLD+"|7. Requirements                                                   |")
-    print (bcolors.BOLD+"--------------------------------------------------------------------")
-    print (bcolors.BOLD+"|8. About me                                                       |")
-    print (bcolors.BOLD+"--------------------------------------------------------------------")
-    print (bcolors.BOLD+"|9. Contact                                                        |")
-    print (bcolors.BOLD+"--------------------------------------------------------------------")
-    print (bcolors.BOLD+"|0. Exit                                                           |")
-    print (bcolors.BOLD+"--------------------------------------------------------------------"+bcolors.W)
-    case = int(input(bcolors.BL+"choose: "+bcolors.W))
+    print ("--------------------------------------------------------------------"+Style.RESET_ALL)
+    print (Fore.CYAN+"|1. Reboot menu                                                    |")
+    print (Fore.YELLOW+"|Simple reboot menu, to make your life more comfortable!           |"+Style.RESET_ALL)
+    print (Fore.CYAN+"--------------------------------------------------------------------")
+    print (Fore.CYAN+"|2. System tweaks                                                  |")
+    print (Fore.YELLOW+"|Here you can find system tweaks, they are all applied in recovery!|"+Style.RESET_ALL)
+    print (Fore.CYAN+"--------------------------------------------------------------------")
+    print (Fore.CYAN+"|3. Install Recovery                                               |")
+    print (Fore.YELLOW+"|Use it to install recovery                                        |"+Style.RESET_ALL)
+    print (Fore.CYAN+"--------------------------------------------------------------------")
+    print (Fore.CYAN+"|4. Check bootloader status (locked/unlocked)                      |")
+    print (Fore.YELLOW+"|You have to be in fastboot mode to make it work                   |"+Style.RESET_ALL)
+    print (Fore.CYAN+"--------------------------------------------------------------------")
+    print (Fore.CYAN+"|5. ADB sideloader                                                 |")
+    print (Fore.YELLOW+"|Start in recovery, then use it to flash all zips you want!        |"+Style.RESET_ALL)
+    print (Fore.CYAN+"--------------------------------------------------------------------")
+    print (Fore.CYAN+"|7. Requirements                                                   |")
+    print (Fore.CYAN+"--------------------------------------------------------------------")
+    print (Fore.CYAN+"|8. About me                                                       |")
+    print (Fore.CYAN+"--------------------------------------------------------------------")
+    print (Fore.CYAN+"|9. Contact                                                        |")
+    print (Fore.CYAN+"--------------------------------------------------------------------")
+    print (Fore.CYAN+"|0. Exit                                                           |")
+    print (Fore.CYAN+"--------------------------------------------------------------------"+Style.RESET_ALL)
+    case = int(input(Fore.BLUE+"choose: "+Style.RESET_ALL))
     if case == 1:
     	rbMenu()
     elif case == 2:
@@ -539,7 +540,7 @@ def menu():
     	goodbye()
     else:
     	clear()
-    	print(bcolors.FAIL+"Error choose right option\n"+bcolors.W)
+    	print(Fore.RED+"Error choose right option\n"+Style.RESET_ALL)
     	input("push enter to continue")
     	menu()
 menu()
