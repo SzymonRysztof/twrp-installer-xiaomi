@@ -14,8 +14,10 @@ class bcolors:
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
 #this is path to /res/ folder and to .py file
-resPath = os.path.dirname(sys.executable)+os.sep+"res"+os.sep
-filePath = os.path.dirname(sys.executable)+os.sep
+#resPath = os.path.dirname(sys.executable)+os.sep+"res"+os.sep
+resPath = os.path.abspath(os.path.dirname(__file__))+os.sep+"res"+os.sep
+filePath = os.path.abspath(os.path.dirname(__file__))+os.sep
+#filePath = os.path.dirname(sys.executable)+os.sep
 #here i'm checking wchich os you are using and setting command to clear cmd/terminal window
 if sys.platform == "linux" or sys.platform == "linux2":
 	clear = lambda: os.system('clear')
