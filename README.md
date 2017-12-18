@@ -11,6 +11,9 @@
 
 Zestaw narzedzi dla telefonów Xiaomi napisany w Pytonie
 
+## Wymagania
+-Colorama (python -m easy_install colorama)
+
 ### Instalacja
 
 1. Fastboot i ADB<br>
@@ -39,6 +42,9 @@ Zestaw narzedzi dla telefonów Xiaomi napisany w Pytonie
 #### I'm not responsible for bricked phones or dead sdcard! You do so at your own risk!
 
 Essential toolkit for Xiaomi's phones coded in Python
+
+## Requirements
+-Colorama (python -m easy_install colorama)
 
 ### Installation
 

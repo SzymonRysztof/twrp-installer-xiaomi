@@ -6,19 +6,11 @@ import urllib.request
 from colorama import Fore, Back, Style, init
 #Thanks to stack overflow!
 init()
-"""class bcolors:
-    HEADER = '\033[95m'
-    BL = '\033[94m'
-    GR = '\033[92m'
-    WARN = '\033[93m'
-    FAIL = '\033[91m'
-    W = '\033[0m'
-    BOLD = '\033[1m'
-    UNDERLINE = '\033[4m'
-"""
 #this is path to /res/ folder and to .py file
-resPath = os.path.dirname(sys.executable)+os.sep+"res"+os.sep
-filePath = os.path.dirname(sys.executable)+os.sep
+resPath = os.path.abspath(os.path.dirname(__file__))+os.sep+"res"+os.sep
+filePath = os.path.abspath(os.path.dirname(__file__))+os.sep
+#resPath = os.path.dirname(sys.executable)+os.sep+"res"+os.sep
+#filePath = os.path.dirname(sys.executable)+os.sep
 #here i'm checking wchich os you are using and setting command to clear cmd/terminal window
 if sys.platform == "linux" or sys.platform == "linux2":
 	clear = lambda: os.system('clear')
@@ -112,7 +104,7 @@ def mix2Cam():
 	isf = os.path.isfile(os.path.dirname(resPath)+os.sep +"cam.apk")
 	if isf == False:
 		print (Fore.YELLOW+"I need to download camera file first, be patient please"+Style.RESET_ALL)
-		urllib.request.urlretrieve('http://80.211.196.53/cam.apk', resPath+'cam.apk')
+		urllib.request.urlretrieve('http://80.211.242.62/cam.apk', resPath+'cam.apk')
 	elif isf == True:
 		print (Fore.GREEN+"Ok, you have camera file already!"+Style.RESET_ALL)
 	os.system("adb push "+resPath+"cam.apk /system/priv-app/MiuiCamera/MiuiCamera.apk")
@@ -128,7 +120,7 @@ def comMiuiHome():
     isf = os.path.isfile(os.path.dirname(resPath)+os.sep +"com.miui.home")
     if isf == False:
     	print (Fore.YELLOW+"I need to download custom home file first, be patient please"+Style.RESET_ALL)
-    	urllib.request.urlretrieve('http://80.211.196.53/home.file', resPath+'com.miui.home')
+    	urllib.request.urlretrieve('http://80.211.242.62/home.file', resPath+'com.miui.home')
     elif isf == True:
     	print (Fore.GREEN+"Ok, you have custom home file already!"+Style.RESET_ALL)
     os.system("adb push "+resPath+"com.miui.home /system/media/theme/default/com.miui.home")
@@ -201,7 +193,7 @@ def twrpInstall():
         elif device != supported_devices[i]:
             tf  = False
     if tf == True:
-        urllib.request.urlretrieve('http://80.211.196.53/twrps/'+device+'.img', resPath+'twrp.img')
+        urllib.request.urlretrieve('http://80.211.242.62/twrps/'+device+'.img', resPath+'twrp.img')
     elif tf == False:
         clear()
         print("Sadly, there is no Official TWRP for your "+supported_devicesDict[device]+" so you will have to download image manually :(")
@@ -212,7 +204,7 @@ def twrpInstall():
             menu()
 
     print ("So, your device is "+supported_devicesDict[device]+", be patient file is now being downloaded")
-    urllib.request.urlretrieve('http://80.211.196.53/twrps/'+device+'.img', filePath+'twrp.img')
+    urllib.request.urlretrieve('http://80.211.242.62/twrps/'+device+'.img', filePath+'twrp.img')
     os.system("adb reboot bootloader")
     time.sleep(5)
     os.system('fastboot devices')
