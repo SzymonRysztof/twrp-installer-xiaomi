@@ -32,58 +32,45 @@ devices = ["cancro", "libra", "ferrari", "aqua", "gemini", "virgo", "leo", "scor
            "HM2013023", "armani", "HM2014811", "HM2014813", "omega", "lcsh92_wet_jb9", "gucci", "dior", "hermes", "ido",
            "land", "hennessy", "kate", "kenzo", "nikel", "prada", "markw", "ugg", "mido", "rolex", "santoni", "mocha",
            "latte", "cappu", ]
-supported_devicesDict = {
-    # mi
-    "aries": "Mi 2",
-    "pisces": "Mi 3 TD",
-    "cancro": "Mi 3 W/Mi 4",
-    "libra": "Mi 4c",
-    "ferrari": "Mi 4i",
-    "aqua": "Mi 4s",
-    "gemini": "Mi 5",
-    "virgo": "Mi Note",
-    "leo": "Mi Note Pro",
-    "scorpio": "Mi Note 2",
-    "jason": "Mi Note 3",
-    "tiffany": "Mi 5x",
-    "song": "Mi 5c",
-    "meri": "Mi 5c",
-    "tisson": "Mi A1",
-    "capricorn": "Mi 5s",
-    "natrium": "Mi 5s+",
-    "lithium": "Mi MIX",
-    "chiron": "Mi MIX 2",
-    "sagit": "Mi 6",
-    "hydrogen": "Mi MAX",
-    "oxygen": "Mi MAX 2",
-    "helium": "Mi MAX PRO",
-    # Redmi
-    "HM2013023": "Redmi 1 - WCDMA",
-    "armani": "Redmi 1s - WCDMA",
-    "HM2014811": "Redmi 2 - WCDMA",
-    "HM2014813": "Redmi 2 - TD",
-    "omega": "Redmi PRO",
-    "lcsh92_wet_jb9": "Redmi note 1 - 3g-mtk",
-    "gucci": "Redmi note 1s",
-    "dior": "Redmi Note 1 - 4g",
-    "hermes": "Redmi Note 2",
-    "ido": "Redmi 3",
-    "land": "Redmi 3 S/X",
-    "hennessy": "Redmi Note 3 (MTK)",
-    "kate": "Redmi Note 3 Global",
-    "kenzo": "Redmi Note 3 Chinese",
-    "nikel": "Redmi Note 4",
-    "prada": "Redmi 4",
-    "markw": "Redmi 4 pro",
-    "ugg": "Redmi Note 5A",
-    "mido": "Redmi Note 4x",
-    "rolex": "Redmi 4a",
-    "santoni": "Redmi 4x",
-    # Tablets
-    "mocha": "Mi PAD",
-    "latte": "Mi PAD 2",
-    "cappu": "Mi PAD 3",
+supported_devicesDict = {'aries': "Mi 2", 'pisces': "Mi 3 TD", 'cancro': "Mi 3 W/Mi 4", 'libra': "Mi 4c",
+                         'ferrari': "Mi 4i", 'aqua': "Mi 4s", 'gemini': "Mi 5", 'virgo': "Mi Note",
+                         'leo': "Mi Note Pro", 'scorpio': "Mi Note 2", 'jason': "Mi Note 3", 'tiffany': "Mi 5x",
+                         'song': "Mi 5c", 'meri': "Mi 5c", 'tisson': "Mi A1", 'capricorn': "Mi 5s", 'natrium': "Mi 5s+",
+                         'lithium': "Mi MIX", 'chiron': "Mi MIX 2", 'sagit': "Mi 6", 'hydrogen': "Mi MAX",
+                         'oxygen': "Mi MAX 2", 'helium': "Mi MAX PRO", 'HM2013023': "Redmi 1 - WCDMA",
+                         'armani': "Redmi 1s - WCDMA", 'HM2014811': "Redmi 2 - WCDMA", 'HM2014813': "Redmi 2 - TD",
+                         'omega': "Redmi PRO", 'lcsh92_wet_jb9': "Redmi note 1 - 3g-mtk", 'gucci': "Redmi note 1s",
+                         'dior': "Redmi Note 1 - 4g", 'hermes': "Redmi Note 2", 'ido': "Redmi 3", 'land': "Redmi 3 S/X",
+                         'hennessy': "Redmi Note 3 (MTK)", 'kate': "Redmi Note 3 Global",
+                         'kenzo': "Redmi Note 3 Chinese", 'nikel': "Redmi Note 4", 'prada': "Redmi 4",
+                         'markw': "Redmi 4 pro", 'ugg': "Redmi Note 5A", 'mido': "Redmi Note 4x", 'rolex': "Redmi 4a",
+                         'santoni': "Redmi 4x", 'mocha': "Mi PAD", 'latte': "Mi PAD 2", 'cappu': "Mi PAD 3"}
+googleApps = {
+    "youtube": "com.google.android.youtube",
+    "drive": "com.google.android.apps.docs",
+    "music": "com.google.android.music",
+    "maps": ":com.google.android.apps.maps",
+    "videos": "com.google.android.videos",
+    "photos": "com.google.android.apps.photos",
+    "chrome": "com.android.chrome",
+    "gmail": "com.google.android.gm",
+    "translate": "com.google.android.apps.translate",
+    "duo": "com.google.android.apps.tachyon"
+
 }
+miuiApps = {
+    "bugreport": "com.miui.bugreport",
+    "compass": "com.miui.compass",
+    "video": "com.miui.videoplayer",
+    "mail": "com.android.email",
+    "music": "com.miui.player",
+    "scanner": "com.xiaomi.scanner",
+    "browser": "com.android.browser",
+    "screenrecorder": "com.miui.screenrecorder",
+    "gallery": "com.miui.gallery"
+
+}
+
 os.system("adb start-server")
 glob_device = os.system("adb shell \"cat /system/build.prop | grep ro.product.device=\" > tmp ")
 glob_device = open('tmp', 'r').read()
@@ -373,6 +360,102 @@ def manualTwrp():
     menu()
 
 
+def appremover():
+    print(dashed_line)
+    print(Fore.YELLOW + "1. Miui Apps")
+    print("2. Google Apps")
+    print("3. Full")
+    print(Fore.RED + "^This one will remove all possible google and miui apps" + Fore.YELLOW)
+    case = int(input(Fore.BLUE + "choose: " + Fore.RESET))
+    if case == 1:
+        clear()
+
+        def removermiui():
+            print(dashed_line+Fore.LIGHTCYAN_EX)
+            i = 1
+            for key, values in miuiApps.items():
+                print("%i. %s" % (i, key.capitalize()))
+                i = i + 1
+            print()
+            print("0. Exit")
+            case = int(input(Fore.BLUE + "choose: " + Fore.RESET))
+            # adb shell pm uninstall -k --user 0 com.google.android.apps.translate
+            i = 0
+            if case == 0:
+                clear()
+                sTweaksMenu()
+            else:
+                for key, values in miuiApps.items():
+                    pckg = values
+                    if case == i + 1:
+                        clear()
+                        print(dashed_line+Fore.GREEN)
+                        os.system("adb shell \"pm uninstall -k --user 0 %s\"" % pckg)
+                        removermiui()
+                    else:
+                        i = i + 1
+                        continue
+        removermiui()
+    elif case == 2:
+        clear()
+
+        def removergoogle():
+            print(dashed_line+Fore.LIGHTCYAN_EX)
+            i = 1
+            for key, values in googleApps.items():
+
+                print("%i. %s" % (i, key.capitalize()))
+                i = i + 1
+            print()
+            print("0. Exit")
+            case = int(input(Fore.BLUE + "choose: " + Fore.RESET))
+            # adb shell pm uninstall -k --user 0 com.google.android.apps.translate
+            i = 0
+            if case == 0:
+                clear()
+                sTweaksMenu()
+            else:
+                for key, values in googleApps.items():
+                    pckg = values
+                    if case == i + 1:
+                        clear()
+                        print(dashed_line+Fore.GREEN)
+                        os.system("adb shell \"pm uninstall -k --user 0 %s\"" % pckg)
+                        removergoogle()
+                    else:
+                        i = i + 1
+                        continue
+
+        removergoogle()
+        case = int(input(Fore.BLUE + "choose: " + Fore.RESET))
+    elif case == 3:
+        apps = list("")
+        pckg = list("")
+        i=0
+        for key, values in googleApps.items():
+            apps.append(key)
+            pckg.append(values)
+            i=i+1
+            continue
+        for key, values in  miuiApps.items():
+            apps.append(key)
+            pckg.append(values)
+            i=i+1
+            continue
+        print (i)
+        print(Fore.RED+"Are you sure you want to remove: %s?" % ', '.join(apps))
+        case = input(Fore.BLUE + "Y/N: " + Fore.RESET)
+        if case.lower() == "y":
+            for x in pckg:
+                os.system("adb shell \" pm uninstall -k --user 0 %s\"" %x)
+            clear()
+            print(dashed_line)
+            print("Everything seems to be removed")
+            input("Press enter to go back")
+            sTweaksMenu()
+        elif case.lower() == "n":
+            sTweaksMenu()
+
 # reboot
 def rbMenu():
     clear()
@@ -435,7 +518,6 @@ def rbMenu():
         rbMenu()
 
 
-# System Tweaks Menu//reboot menu
 # Tweaks
 def sTweaksMenu():
     clear()
@@ -461,6 +543,9 @@ def sTweaksMenu():
     print(dashed_line)
     print(Fore.CYAN + "|6. Activate Camera 2 API                                          |")
     print(Fore.WHITE + "|Use it to activate cam2api in your build.prop                     |")
+    print(dashed_line)
+    print(Fore.CYAN + "|7. System apps remover                                            |")
+    print(Fore.WHITE + "|Remove google/miui apss without root, from system                 |")
     print(dashed_line)
     print(Fore.CYAN + "|0. Back to main menu                                              |")
     print(dashed_line)
@@ -503,6 +588,9 @@ def sTweaksMenu():
         os.system("adb shell umount /system")
         input("push enter to continue")
         sTweaksMenu()
+    elif case == 7:
+        clear()
+        appremover()
     elif case == 0:
         killsystem
         clear()
