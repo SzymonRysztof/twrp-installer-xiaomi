@@ -16,23 +16,23 @@ Zestaw narzedzi dla telefonów Xiaomi napisany w Pytonie
 -Colorama
 
 ### Instalacja
-Windows:
-    1.Instalujemy pythona w wersji 3.
-    2.Instalujemy moduł colorama dla pythona:
-        Znajdujemy lokalizacje pythona (domyślnie c:\Users\$user\AppData\Local\Programs\PythonX\)
-        Otwieramy te lokalizację w cmd
-        wpisujemy "Scripts\pip.exe install colorama"
-    3.Pobieramy i instalujemy ADB + Fastboot (Ważne jest żeby znajdowały się w PATH systemowych!)
-    4.Pobieramy repozytprium z GitHub
-    5.Uruchamiamy XET.py (najlepiej otworzyć cmd, przeciągnąć xet.py i kliknąć enter, w razie błedu okno się nie zamknie i będziecie mogli wysłać mi screenshoot)
-Linux:
-    Instrukcja dla ubuntu i mu podobnych, ale zasada ta sama dla każdej dystrybucji
-    1.sudo apt-get install python3 python-pip git android-tools-adb android-tools-fastboot
-    2.sudo pip-install colorama
-    3.git clone https://github.com/mezutelni/twrp-installer-xiaomi.git
-    4.Otwieramy terminal w miejscu lokalizacji pliku
-    5.chmod +x XET.py
-    6.Uruchamiamy z terminala przez ./XET.py
+Windows:<br>
+    1.Instalujemy pythona w wersji 3.<br>
+    2.Instalujemy moduł colorama dla pythona:<br>
+        Znajdujemy lokalizacje pythona (domyślnie c:\Users\$user\AppData\Local\Programs\PythonX\)<br>
+        Otwieramy te lokalizację w cmd<br>
+        wpisujemy "Scripts\pip.exe install colorama"<br>
+    3.Pobieramy i instalujemy ADB + Fastboot (Ważne jest żeby znajdowały się w PATH systemowych!)<br>
+    4.Pobieramy repozytprium z GitHub<br>
+    5.Uruchamiamy XET.py (najlepiej otworzyć cmd, przeciągnąć xet.py i kliknąć enter, w razie błedu okno się nie zamknie i będziecie mogli wysłać mi screenshoot)<br>
+Linux:<br>
+    Instrukcja dla ubuntu i mu podobnych, ale zasada ta sama dla każdej dystrybucji<br>
+    1.sudo apt-get install python3 python-pip git android-tools-adb android-tools-fastboot<br>
+    2.sudo pip-install colorama<br>
+    3.git clone https://github.com/mezutelni/twrp-installer-xiaomi.git<br>
+    4.Otwieramy terminal w miejscu lokalizacji pliku<br>
+    5.chmod +x XET.py<br>
+    6.Uruchamiamy z terminala przez ./XET.py<br>
 
 ### Funkcje:
 -Pobieranie i instalacja recovery dla wspieranych urządzeń (oficjalne twrp)<br>
@@ -61,23 +61,23 @@ Essential toolkit for Xiaomi's phones coded in Python
 
 ### Installation
 
-Windows:
-    1.Install python 3
-    2.Install colorama for python:
-        Find python.exe location (default c:\Users\$user\AppData\Local\Programs\PythonX\)
-        Open it in cmd
-        Type "Scripts\pip.exe install colorama"
-    3.Download and install ADB + Fastboot (Its your choice, but make sure that they are in PATH)
-    4.Download repo from GitHub
-    5.Run XET.py (The best way is to open it in CMD so you can send me crash notes)
-Linux:
-    For ubuntu family:
-    1.sudo apt-get install python3 python-pip git android-tools-adb android-tools-fastboot
-    2.sudo pip-install colorama
-    3.git clone https://github.com/mezutelni/twrp-installer-xiaomi.git
-    4.Open terminal in repo location
-    5.chmod +x XET.py
-    6.Run ./XET.py in terminal
+Windows:<br>
+    1.Install python 3<br>
+    2.Install colorama for python:<br>
+        Find python.exe location (default c:\Users\$user\AppData\Local\Programs\PythonX\)<br>
+        Open it in cmd<br>
+        Type "Scripts\pip.exe install colorama"<br>
+    3.Download and install ADB + Fastboot (Its your choice, but make sure that they are in PATH)<br>
+    4.Download repo from GitHub<br>
+    5.Run XET.py (The best way is to open it in CMD so you can send me crash notes)<br>
+Linux:<br>
+    For ubuntu family:<br>
+    1.sudo apt-get install python3 python-pip git android-tools-adb android-tools-fastboot<br>
+    2.sudo pip-install colorama<br>
+    3.git clone https://github.com/mezutelni/twrp-installer-xiaomi.git<br>
+    4.Open terminal in repo location<br>
+    5.chmod +x XET.py<br>
+    6.Run ./XET.py in terminal<br>
 
 
 ### Functions:
