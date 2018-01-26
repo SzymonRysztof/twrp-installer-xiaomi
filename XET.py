@@ -155,24 +155,23 @@ def comMiuiHome():
 
 
 def bl():
-    print("To make this work, you have to be in fastboot mode!")
-    print("Do you want to continue? (Y/N)")
-    x = input("")
+    os.system("adb reboot bootloader")
     clear()
-    if x.lower() == "y":
-        print(dashed_line)
-        print("Your bootloader status is: ")
-        os.system('fastboot oem device-info > results.txt 2>&1')
-        bl = open('results.txt', 'r').read()
-        os.remove('results.txt')
-        # bl = bl[72]+bl[73]+bl[74]+bl[75]+bl[76]
-        if bl[72] == "t":
-            bl = "Unlocked"
-        elif bl[72] == "f":
-            bl = "Locked"
-        print(bl)
-    elif x.lower() == "n":
-        menu()
+    print(dashed_line)
+    print("Your bootloader status is: ")
+    os.system('fastboot oem device-info > results.txt 2>&1')
+    bl = open('results.txt', 'r').read()
+    os.remove('results.txt')
+    # bl = bl[72]+bl[73]+bl[74]+bl[75]+bl[76]
+    if bl[72] == "t":
+        bl = "Unlocked"
+        print(Fore.GREEN+bl)
+    elif bl[72] == "f":
+        bl = "Locked"
+        print(Fore.RED + bl)
+    print()
+    input(Fore.BLUE+"Push enter to exit")
+    menu()
 
 
 def sideloader():

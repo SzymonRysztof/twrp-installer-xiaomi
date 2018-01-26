@@ -12,17 +12,27 @@
 Zestaw narzedzi dla telefonów Xiaomi napisany w Pytonie
 
 ## Wymagania
--Colorama (python -m easy_install colorama)
+-Python
+-Colorama
 
 ### Instalacja
-
-1. Fastboot i ADB<br>
-  a)Na Windowsie instalujemy fastboot i adb (np. https://forum.xda-developers.com/showthread.php?t=2588979)<br>
-  b)Na linuxie instalujemy naszym package manegerem (np. apt)<br>
-2. Instalujemy pythona 3.6<br>
-3. Uruchamiamy skrypt<br>
-  a)Na Windowsie dwu klik na main.py<br>
-  b)Na Linuxie najpier raz nadajemy uprawnienia 'chmod +x main.py' a potem każdorazowo w terminalu  ./main.py<br>
+Windows:
+    1.Instalujemy pythona w wersji 3.
+    2.Instalujemy moduł colorama dla pythona:
+        Znajdujemy lokalizacje pythona (domyślnie c:\Users\$user\AppData\Local\Programs\PythonX\)
+        Otwieramy te lokalizację w cmd
+        wpisujemy "Scripts\pip.exe install colorama"
+    3.Pobieramy i instalujemy ADB + Fastboot (Ważne jest żeby znajdowały się w PATH systemowych!)
+    4.Pobieramy repozytprium z GitHub
+    5.Uruchamiamy XET.py (najlepiej otworzyć cmd, przeciągnąć xet.py i kliknąć enter, w razie błedu okno się nie zamknie i będziecie mogli wysłać mi screenshoot)
+Linux:
+    Instrukcja dla ubuntu i mu podobnych, ale zasada ta sama dla każdej dystrybucji
+    1.sudo apt-get install python3 python-pip git android-tools-adb android-tools-fastboot
+    2.sudo pip-install colorama
+    3.git clone https://github.com/mezutelni/twrp-installer-xiaomi.git
+    4.Otwieramy terminal w miejscu lokalizacji pliku
+    5.chmod +x XET.py
+    6.Uruchamiamy z terminala przez ./XET.py
 
 ### Funkcje:
 -Pobieranie i instalacja recovery dla wspieranych urządzeń (oficjalne twrp)<br>
@@ -35,6 +45,7 @@ Zestaw narzedzi dla telefonów Xiaomi napisany w Pytonie
 -Instalacja aplikacji kamery z Mi Mix 2(Automatyczny backup starej aplikacji w /system/priv-app/MiuiCamera/MiuiCamera.bak)<br>
 -Odblokowanie opcji zmiany siatki pulpitu aż do 10x10 (Automatyczny backup starego pliku do /system/media/themes/default/com.miui.home.old)<br>
 -Aktywacja camera 2 api<br>
+-Usuwanie aplikacji systemowych<br>
 
 # EN
 
@@ -44,17 +55,30 @@ Zestaw narzedzi dla telefonów Xiaomi napisany w Pytonie
 Essential toolkit for Xiaomi's phones coded in Python
 
 ## Requirements
--Colorama (python -m easy_install colorama)
+-Python
+-Colorama
+
 
 ### Installation
 
-1. Fastboot & ADB<br>
-  a)On Windows we have to install adb and fastboot (eg. https://forum.xda-developers.com/showthread.php?t=2588979)<br>
-  b)On Linux we have to use our package manager (eg. apt)<br>
-2. Install python 3.6<br>
-3. Run script<br>
-  a)On Windows double click main.py<br>
-  b)On linux, first we have to give perrmissions to script once: 'chmod +x main.py' then start script from terminal  ./main.py<br>
+Windows:
+    1.Install python 3
+    2.Install colorama for python:
+        Find python.exe location (default c:\Users\$user\AppData\Local\Programs\PythonX\)
+        Open it in cmd
+        Type "Scripts\pip.exe install colorama"
+    3.Download and install ADB + Fastboot (Its your choice, but make sure that they are in PATH)
+    4.Download repo from GitHub
+    5.Run XET.py (The best way is to open it in CMD so you can send me crash notes)
+Linux:
+    For ubuntu family:
+    1.sudo apt-get install python3 python-pip git android-tools-adb android-tools-fastboot
+    2.sudo pip-install colorama
+    3.git clone https://github.com/mezutelni/twrp-installer-xiaomi.git
+    4.Open terminal in repo location
+    5.chmod +x XET.py
+    6.Run ./XET.py in terminal
+
 
 ### Functions:
 -Downloading and installing twrp for supported phones (this with official TWRP)<br>
@@ -67,3 +91,4 @@ Essential toolkit for Xiaomi's phones coded in Python
 -Installing Mi Mix 2 camera apk (Auto backup old file to /system/priv-app/MiuiCamera/MiuiCamera.bak)<br>
 -Installing custom grid size up to 10x10 (Auto backup old file to /system/media/themes/default/com.miui.home.old)<br>
 -Camera 2 API activation<br>
+-Removing system Apps<br>
