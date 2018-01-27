@@ -3,6 +3,7 @@ import os
 import sys
 import time
 import urllib.request
+import hashlib
 from colorama import Fore, Back, Style, init
 
 # Thanks to stack overflow!
@@ -12,6 +13,7 @@ resPath = os.path.abspath(os.path.dirname(__file__)) + os.sep + "res" + os.sep
 filePath = os.path.abspath(os.path.dirname(__file__)) + os.sep
 # resPath = os.path.dirname(sys.executable)+os.sep+"res"+os.sep
 # filePath = os.path.dirname(sys.executable)+os.sep
+
 # here i'm checking wchich os you are using and setting command to clear cmd/terminal window
 if sys.platform == "linux" or sys.platform == "linux2":
     clear = lambda: os.system('clear')
@@ -43,7 +45,7 @@ supported_devicesDict = {'aries': "Mi 2", 'pisces': "Mi 3 TD", 'cancro': "Mi 3 W
                          'dior': "Redmi Note 1 - 4g", 'hermes': "Redmi Note 2", 'ido': "Redmi 3", 'land': "Redmi 3 S/X",
                          'hennessy': "Redmi Note 3 (MTK)", 'kate': "Redmi Note 3 Global",
                          'kenzo': "Redmi Note 3 Chinese", 'nikel': "Redmi Note 4", 'prada': "Redmi 4",
-                         'markw': "Redmi 4 pro", 'ugg': "Redmi Note 5A", 'mido': "Redmi Note 4x", 'rolex': "Redmi 4a",
+                         'markw': "Redmi 4 pro", 'ugg': "Redmi Note 5A", 'mido': "Redmi Note 4/4x", 'rolex': "Redmi 4a",
                          'santoni': "Redmi 4x", 'mocha': "Mi PAD", 'latte': "Mi PAD 2", 'cappu': "Mi PAD 3"}
 googleApps = {
     "youtube": "com.google.android.youtube",
@@ -67,15 +69,21 @@ miuiApps = {
     "scanner": "com.xiaomi.scanner",
     "browser": "com.android.browser",
     "screenrecorder": "com.miui.screenrecorder",
-    "gallery": "com.miui.gallery"
+    "gallery": "com.miui.gallery",
+    "updater": "com.android.updater",
 
 }
-
+localmd5s = [
+    "f337d1707478d63315820a45030f547d", #0.camera
+    "537e17e2585e731a1c26fbd81eb2affa", #1.home
+]
 os.system("adb start-server")
+os.system("adb shell mount /system")
 glob_device = os.system("adb shell \"cat /system/build.prop | grep ro.product.device=\" > tmp ")
 glob_device = open('tmp', 'r').read()
 open('tmp', "r").close()
 os.remove("tmp")
+os.system("adb shell umount /system")
 glob_device = glob_device.lstrip('ro.product.device')[1:]
 glob_device = ''.join(glob_device.split())
 tf = 0
@@ -95,6 +103,14 @@ def goodbye():
     print(Fore.GREEN + "Consider a donation for me to keep my servers up!")
     print("www.paypal.me/Mezutelni")
     sys.exit()
+
+#Thanks to stackoverflow!
+def md5(fname):
+    hash_md5 = hashlib.md5()
+    with open(fname, "rb") as f:
+        for chunk in iter(lambda: f.read(4096), b""):
+            hash_md5.update(chunk)
+    return hash_md5.hexdigest()
 
 
 def dpiChanger():
@@ -116,43 +132,52 @@ def dpiChanger():
 
 def mix2Cam():
     print(dashed_line)
+    path = resPath + os.sep + "cam.apk"
     os.system("adb shell mount /system")
-    print(Fore.WHITE + "Don't worry if you see error here^ this means that your system is mounted already" + Fore.RESET)
-    os.system("adb shell mv /system/priv-app/MiuiCamera/MiuiCamera.apk /system/priv-app/MiuiCamera/MiuiCamera.apk.bak")
     isf = os.path.isfile(os.path.dirname(resPath) + os.sep + "cam.apk")
-    if isf == False:
+    if not isf:
         print(Fore.WHITE + "I need to download camera file first, be patient please" + Fore.RESET)
         urllib.request.urlretrieve('http://80.211.242.62/cam.apk', resPath + 'cam.apk')
-    elif isf == True:
+    elif isf:
         print(Fore.WHITE + "Ok, you have camera file already!" + Fore.RESET)
-    os.system("adb push " + resPath + "cam.apk /system/priv-app/MiuiCamera/MiuiCamera.apk")
-    os.system("adb shell chmod 644 /system/priv-app/MiuiCamera/MiuiCamera.apk")
-    print(Fore.BLUE + "Your old camera is still here, backed up, just in case")
-    os.system("adb shell umount /system")
-    input("push enter to continue" + Fore.RESET)
-    print(dashed_line)
-    sTweaksMenu()
-
+    md5sum = md5(path)
+    if md5sum == localmd5s[0]:
+        os.system("adb push " + resPath + "cam.apk /system/priv-app/MiuiCamera/MiuiCamera.apk")
+        os.system("adb shell chmod 644 /system/priv-app/MiuiCamera/MiuiCamera.apk")
+        print(Fore.BLUE + "Your old camera is still here, backed up, just in case")
+        os.system("adb shell umount /system")
+        input("push enter to continue" + Fore.RESET)
+        print(dashed_line)
+        sTweaksMenu()
+    else:
+        print("But it's looks like it's broken, let me re-download it!")
+        os.remove(path)
+        mix2Cam()
 
 def comMiuiHome():
     print(dashed_line)
+    path = resPath + os.sep + "com.miui.home"
     os.system("adb shell mount /system")
-    print(Fore.WHITE + "Don't worry if you see error here^ this means that your system is mounted already" + Fore.RESET)
     os.system("adb shell mv /system/media/theme/default/com.miui.home /system/media/theme/default/com.miui.home.old")
     isf = os.path.isfile(os.path.dirname(resPath) + os.sep + "com.miui.home")
-    if isf == False:
+    if not isf:
         print(Fore.WHITE + "I need to download custom home file first, be patient please" + Fore.RESET)
         urllib.request.urlretrieve('http://80.211.242.62/home.file', resPath + 'com.miui.home')
-    elif isf == True:
+    elif isf:
         print(Fore.WHITE + "Ok, you have custom home file already!" + Fore.RESET)
-    os.system("adb push " + resPath + "com.miui.home /system/media/theme/default/com.miui.home")
-    os.system("adb shell chmod 644 /system/media/theme/default/com.miui.home")
-    print(Fore.BLUE + "Your old com.miui.home is still here, backed up, just in case")
-    os.system("adb shell umount /system")
-    input("push enter to continue" + Fore.RESET)
-    print(dashed_line)
-    sTweaksMenu()
-
+    md5sum = md5(path)
+    if md5sum == localmd5s[1]:
+        os.system("adb push " + resPath + "com.miui.home /system/media/theme/default/com.miui.home")
+        os.system("adb shell chmod 644 /system/media/theme/default/com.miui.home")
+        print(Fore.BLUE + "Your old com.miui.home is still here, backed up, just in case")
+        os.system("adb shell umount /system")
+        input("push enter to continue" + Fore.RESET)
+        print(dashed_line)
+        sTweaksMenu()
+    else:
+        os.remove(path)
+        print("But it's looks like it's broken, let me re-download it!")
+        comMiuiHome()
 
 def bl():
     os.system("adb reboot bootloader")
@@ -225,8 +250,7 @@ def twrpInstall():
         urllib.request.urlretrieve('http://80.211.242.62/twrps/' + device + '.img', resPath + 'twrp.img')
     elif tf == False:
         clear()
-        print("Sadly, there is no Official TWRP for your " + supported_devicesDict[
-            device] + " so you will have to download image manually :(")
+        print("Sadly, there is no Official TWRP for your " + supported_devicesDict[device] + " so you will have to download image manually :(")
         install = input("Do you want to install downloaded image now? (Y/N)")
         if install.lower() == "y":
             manualTwrp()
@@ -455,7 +479,16 @@ def appremover():
         elif case.lower() == "n":
             sTweaksMenu()
 
-# reboot
+
+"""
+def autoroot():
+    print(dashed_line)
+    urllib.request.urlretrieve('http://80.211.242.62/magisk.zip', resPath + 'magisk.zip')
+    os.system("adb reboot recovery")
+    os.system("adb reboot sideload")
+    os.system("adb sideload /res/magisk.zip")
+"""
+
 def rbMenu():
     clear()
     print(deviceN)
@@ -553,7 +586,7 @@ def sTweaksMenu():
         clear()
         print(dashed_line)
         os.system("adb shell mount /system")
-        os.system("adb pull /system/build.prop " + resPath)
+        os.system("adb pull /system/build.prop " + resPath +"build.prop")
         print(Fore.WHITE + "Backup complete! Your build.prop is now in res folder!" + Fore.RESET)
         os.system("adb shell umount /system")
         input("push enter to continue")
@@ -590,6 +623,9 @@ def sTweaksMenu():
     elif case == 7:
         clear()
         appremover()
+    elif case == 8:
+        clear()
+        autoroot()
     elif case == 0:
         killsystem
         clear()
