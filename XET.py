@@ -71,6 +71,10 @@ miuiApps = {
     "screenrecorder": "com.miui.screenrecorder",
     "gallery": "com.miui.gallery",
     "updater": "com.android.updater",
+    "midrop": "com.xiaomi.midrop",
+    "calendar": "com.android.calendar",
+    "miui assistant": "com.mi.android.globalpersonalassistant",
+    "notes": "com.miui.notes",
 
 }
 localmd5s = [
