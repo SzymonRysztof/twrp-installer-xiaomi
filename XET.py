@@ -6,13 +6,7 @@ import urllib.request
 import hashlib
 from colorama import Fore, Back, Style, init
 
-# Thanks to stack overflow!
 init()
-# this is path to /res/ folder and to .py file
-resPath = os.path.abspath(os.path.dirname(__file__)) + os.sep + "res" + os.sep
-filePath = os.path.abspath(os.path.dirname(__file__)) + os.sep
-# resPath = os.path.dirname(sys.executable)+os.sep+"res"+os.sep
-# filePath = os.path.dirname(sys.executable)+os.sep
 
 # here i'm checking wchich os you are using and setting command to clear cmd/terminal window
 if sys.platform == "linux" or sys.platform == "linux2":
@@ -24,29 +18,45 @@ elif sys.platform == "win32":
 
 # some global variables
 dashed_line = (Fore.MAGENTA + "--------------------------------------------------------------------" + Fore.RESET)
+
 killsystem = os.system("adb kill-server")
+
+# this is path to /res/ folder and to .py file
+
+resPath = os.path.abspath(os.path.dirname(__file__)) + os.sep + "res" + os.sep
+
+filePath = os.path.abspath(os.path.dirname(__file__)) + os.sep
+
+# resPath = os.path.dirname(sys.executable)+os.sep+"res"+os.sep
+
+# filePath = os.path.dirname(sys.executable)+os.sep
+
+
 # this is list of devices with official twrp support
 supported_devices = ["aries", "cancro", "capricorn", "dior", "ferrari", "gemini", "helium", "hennessy", "hermes",
                      "hydrogen", "ido", "kate", "kenzo", "land", "libra", "lithium", "mido", "mocha", "natrium",
                      "rolex", "sagit", "santoni"]
+
 devices = ["cancro", "libra", "ferrari", "aqua", "gemini", "virgo", "leo", "scorpio", "jason", "tiffany", "song",
            "meri", "tisson", "capricorn", "natrium", "lithium", "chiron", "sagit", "hydrogen", "oxygen", "helium",
            "HM2013023", "armani", "HM2014811", "HM2014813", "omega", "lcsh92_wet_jb9", "gucci", "dior", "hermes", "ido",
            "land", "hennessy", "kate", "kenzo", "nikel", "prada", "markw", "ugg", "mido", "rolex", "santoni", "mocha",
            "latte", "cappu", ]
-supported_devicesDict = {'aries': "Mi 2", 'pisces': "Mi 3 TD", 'cancro': "Mi 3 W/Mi 4", 'libra': "Mi 4c",
-                         'ferrari': "Mi 4i", 'aqua': "Mi 4s", 'gemini': "Mi 5", 'virgo': "Mi Note",
-                         'leo': "Mi Note Pro", 'scorpio': "Mi Note 2", 'jason': "Mi Note 3", 'tiffany': "Mi 5x",
-                         'song': "Mi 5c", 'meri': "Mi 5c", 'tisson': "Mi A1", 'capricorn': "Mi 5s", 'natrium': "Mi 5s+",
-                         'lithium': "Mi MIX", 'chiron': "Mi MIX 2", 'sagit': "Mi 6", 'hydrogen': "Mi MAX",
-                         'oxygen': "Mi MAX 2", 'helium': "Mi MAX PRO", 'HM2013023': "Redmi 1 - WCDMA",
-                         'armani': "Redmi 1s - WCDMA", 'HM2014811': "Redmi 2 - WCDMA", 'HM2014813': "Redmi 2 - TD",
-                         'omega': "Redmi PRO", 'lcsh92_wet_jb9': "Redmi note 1 - 3g-mtk", 'gucci': "Redmi note 1s",
-                         'dior': "Redmi Note 1 - 4g", 'hermes': "Redmi Note 2", 'ido': "Redmi 3", 'land': "Redmi 3 S/X",
-                         'hennessy': "Redmi Note 3 (MTK)", 'kate': "Redmi Note 3 Global",
-                         'kenzo': "Redmi Note 3 Chinese", 'nikel': "Redmi Note 4", 'prada': "Redmi 4",
-                         'markw': "Redmi 4 pro", 'ugg': "Redmi Note 5A", 'mido': "Redmi Note 4/4x", 'rolex': "Redmi 4a",
-                         'santoni': "Redmi 4x", 'mocha': "Mi PAD", 'latte': "Mi PAD 2", 'cappu': "Mi PAD 3"}
+
+devicesDict = {'aries': "Mi 2", 'pisces': "Mi 3 TD", 'cancro': "Mi 3 W/Mi 4", 'libra': "Mi 4c",
+               'ferrari': "Mi 4i", 'aqua': "Mi 4s", 'gemini': "Mi 5", 'virgo': "Mi Note",
+               'leo': "Mi Note Pro", 'scorpio': "Mi Note 2", 'jason': "Mi Note 3", 'tiffany': "Mi 5x",
+               'song': "Mi 5c", 'meri': "Mi 5c", 'tisson': "Mi A1", 'capricorn': "Mi 5s", 'natrium': "Mi 5s+",
+               'lithium': "Mi MIX", 'chiron': "Mi MIX 2", 'sagit': "Mi 6", 'hydrogen': "Mi MAX",
+               'oxygen': "Mi MAX 2", 'helium': "Mi MAX PRO", 'HM2013023': "Redmi 1 - WCDMA",
+               'armani': "Redmi 1s - WCDMA", 'HM2014811': "Redmi 2 - WCDMA", 'HM2014813': "Redmi 2 - TD",
+               'omega': "Redmi PRO", 'lcsh92_wet_jb9': "Redmi note 1 - 3g-mtk", 'gucci': "Redmi note 1s",
+               'dior': "Redmi Note 1 - 4g", 'hermes': "Redmi Note 2", 'ido': "Redmi 3", 'land': "Redmi 3 S/X",
+               'hennessy': "Redmi Note 3 (MTK)", 'kate': "Redmi Note 3 Global",
+               'kenzo': "Redmi Note 3 Chinese", 'nikel': "Redmi Note 4", 'prada': "Redmi 4",
+               'markw': "Redmi 4 pro", 'ugg': "Redmi Note 5A", 'mido': "Redmi Note 4/4x", 'rolex': "Redmi 4a",
+               'santoni': "Redmi 4x", 'mocha': "Mi PAD", 'latte': "Mi PAD 2", 'cappu': "Mi PAD 3"}
+
 googleApps = {
     "youtube": "com.google.android.youtube",
     "drive": "com.google.android.apps.docs",
@@ -60,6 +70,7 @@ googleApps = {
     "duo": "com.google.android.apps.tachyon"
 
 }
+
 miuiApps = {
     "bugreport": "com.miui.bugreport",
     "compass": "com.miui.compass",
@@ -77,38 +88,43 @@ miuiApps = {
     "notes": "com.miui.notes",
 
 }
+
 localmd5s = [
-    "f337d1707478d63315820a45030f547d", #0.camera
-    "537e17e2585e731a1c26fbd81eb2affa", #1.home
+    "f337d1707478d63315820a45030f547d",  # 0.camera
+    "537e17e2585e731a1c26fbd81eb2affa",  # 1.home
 ]
-os.system("adb start-server")
-os.system("adb shell mount /system")
-glob_device = os.system("adb shell \"cat /system/build.prop | grep ro.product.device=\" > tmp ")
-glob_device = open('tmp', 'r').read()
-open('tmp', "r").close()
-os.remove("tmp")
-os.system("adb shell umount /system")
-glob_device = glob_device.lstrip('ro.product.device')[1:]
-glob_device = ''.join(glob_device.split())
-tf = 0
-i = 0
-i = int(i)
-for i in range(len(devices)):
-    if glob_device == devices[i]:
-        deviceN = (Fore.GREEN + supported_devicesDict[devices[i]])
-        break
-    elif glob_device != devices[i]:
-        deviceN = (Fore.RED + "Device Not Connected")
 
 
 # Here are all functions that i'm using below (not all options in menu are functions)
+def mydevice():
+    os.system("adb start-server")
+    os.system("adb shell mount /system")
+    glob_device = os.system("adb shell \"cat /system/build.prop | grep ro.product.device=\" > tmp ")
+    glob_device = open('tmp', 'r').read()
+    open('tmp', "r").close()
+    os.remove("tmp")
+    os.system("adb shell umount /system")
+    glob_device = glob_device.lstrip('ro.product.device')[1:]
+    codename = ''.join(glob_device.split())
+    for key, values in devicesDict.items():
+        if key == codename:
+            codename = values
+            return codename
+        elif key != codename:
+            continue
+
+
+deviceN = mydevice()
+
+
 def goodbye():
     killsystem
     print(Fore.GREEN + "Consider a donation for me to keep my servers up!")
     print("www.paypal.me/Mezutelni")
     sys.exit()
 
-#Thanks to stackoverflow!
+
+# Thanks to stackoverflow!
 def md5(fname):
     hash_md5 = hashlib.md5()
     with open(fname, "rb") as f:
@@ -158,6 +174,7 @@ def mix2Cam():
         os.remove(path)
         mix2Cam()
 
+
 def comMiuiHome():
     print(dashed_line)
     path = resPath + os.sep + "com.miui.home"
@@ -183,6 +200,7 @@ def comMiuiHome():
         print("But it's looks like it's broken, let me re-download it!")
         comMiuiHome()
 
+
 def bl():
     os.system("adb reboot bootloader")
     clear()
@@ -194,12 +212,12 @@ def bl():
     # bl = bl[72]+bl[73]+bl[74]+bl[75]+bl[76]
     if bl[72] == "t":
         bl = "Unlocked"
-        print(Fore.GREEN+bl)
+        print(Fore.GREEN + bl)
     elif bl[72] == "f":
         bl = "Locked"
         print(Fore.RED + bl)
     print()
-    input(Fore.BLUE+"Push enter to exit")
+    input(Fore.BLUE + "Push enter to exit")
     menu()
 
 
@@ -254,14 +272,15 @@ def twrpInstall():
         urllib.request.urlretrieve('http://80.211.242.62/twrps/' + device + '.img', resPath + 'twrp.img')
     elif tf == False:
         clear()
-        print("Sadly, there is no Official TWRP for your " + supported_devicesDict[device] + " so you will have to download image manually :(")
+        print("Sadly, there is no Official TWRP for your " + devicesDict[
+            device] + " so you will have to download image manually :(")
         install = input("Do you want to install downloaded image now? (Y/N)")
         if install.lower() == "y":
             manualTwrp()
         else:
             menu()
     # Tutaj pobieram odpowiednie twrp z mojego serwera
-    print("So, your device is " + supported_devicesDict[device] + ", be patient file is now being downloaded")
+    print("So, your device is " + devicesDict[device] + ", be patient file is now being downloaded")
     urllib.request.urlretrieve('http://80.211.242.62/twrps/' + device + '.img', filePath + 'twrp.img')
     os.system("adb reboot bootloader")
     time.sleep(5)
@@ -387,6 +406,60 @@ def manualTwrp():
     menu()
 
 
+def removermiui():
+    print(dashed_line + Fore.LIGHTCYAN_EX)
+    i = 1
+    for key, values in miuiApps.items():
+        print("%i. %s" % (i, key.capitalize()))
+        i = i + 1
+    print()
+    print("0. Exit")
+    case = int(input(Fore.BLUE + "choose: " + Fore.RESET))
+    # adb shell pm uninstall -k --user 0 com.google.android.apps.translate
+    i = 0
+    if case == 0:
+        clear()
+        sTweaksMenu()
+    else:
+        for key, values in miuiApps.items():
+            pckg = values
+            if case == i + 1:
+                clear()
+                print(dashed_line + Fore.GREEN)
+                os.system("adb shell \"pm uninstall -k --user 0 %s\"" % pckg)
+                removermiui()
+            else:
+                i = i + 1
+                continue
+
+
+def removergoogle():
+    print(dashed_line + Fore.LIGHTCYAN_EX)
+    i = 1
+    for key, values in googleApps.items():
+        print("%i. %s" % (i, key.capitalize()))
+        i = i + 1
+    print()
+    print("0. Exit")
+    case = int(input(Fore.BLUE + "choose: " + Fore.RESET))
+    # adb shell pm uninstall -k --user 0 com.google.android.apps.translate
+    i = 0
+    if case == 0:
+        clear()
+        sTweaksMenu()
+    else:
+        for key, values in googleApps.items():
+            pckg = values
+            if case == i + 1:
+                clear()
+                print(dashed_line + Fore.GREEN)
+                os.system("adb shell \"pm uninstall -k --user 0 %s\"" % pckg)
+                removergoogle()
+            else:
+                i = i + 1
+                continue
+
+
 def appremover():
     print(dashed_line)
     print(Fore.YELLOW + "1. Miui Apps")
@@ -396,85 +469,30 @@ def appremover():
     case = int(input(Fore.BLUE + "choose: " + Fore.RESET))
     if case == 1:
         clear()
-
-        def removermiui():
-            print(dashed_line+Fore.LIGHTCYAN_EX)
-            i = 1
-            for key, values in miuiApps.items():
-                print("%i. %s" % (i, key.capitalize()))
-                i = i + 1
-            print()
-            print("0. Exit")
-            case = int(input(Fore.BLUE + "choose: " + Fore.RESET))
-            # adb shell pm uninstall -k --user 0 com.google.android.apps.translate
-            i = 0
-            if case == 0:
-                clear()
-                sTweaksMenu()
-            else:
-                for key, values in miuiApps.items():
-                    pckg = values
-                    if case == i + 1:
-                        clear()
-                        print(dashed_line+Fore.GREEN)
-                        os.system("adb shell \"pm uninstall -k --user 0 %s\"" % pckg)
-                        removermiui()
-                    else:
-                        i = i + 1
-                        continue
         removermiui()
     elif case == 2:
         clear()
-
-        def removergoogle():
-            print(dashed_line+Fore.LIGHTCYAN_EX)
-            i = 1
-            for key, values in googleApps.items():
-
-                print("%i. %s" % (i, key.capitalize()))
-                i = i + 1
-            print()
-            print("0. Exit")
-            case = int(input(Fore.BLUE + "choose: " + Fore.RESET))
-            # adb shell pm uninstall -k --user 0 com.google.android.apps.translate
-            i = 0
-            if case == 0:
-                clear()
-                sTweaksMenu()
-            else:
-                for key, values in googleApps.items():
-                    pckg = values
-                    if case == i + 1:
-                        clear()
-                        print(dashed_line+Fore.GREEN)
-                        os.system("adb shell \"pm uninstall -k --user 0 %s\"" % pckg)
-                        removergoogle()
-                    else:
-                        i = i + 1
-                        continue
-
         removergoogle()
         case = int(input(Fore.BLUE + "choose: " + Fore.RESET))
     elif case == 3:
         apps = list("")
         pckg = list("")
-        i=0
+        i = 0
         for key, values in googleApps.items():
             apps.append(key)
             pckg.append(values)
-            i=i+1
+            i = i + 1
             continue
-        for key, values in  miuiApps.items():
+        for key, values in miuiApps.items():
             apps.append(key)
             pckg.append(values)
-            i=i+1
+            i = i + 1
             continue
-        print (i)
-        print(Fore.RED+"Are you sure you want to remove: %s?" % ', '.join(apps))
+        print(Fore.RED + "Are you sure you want to remove: %s?" % ', '.join(apps))
         case = input(Fore.BLUE + "Y/N: " + Fore.RESET)
         if case.lower() == "y":
             for x in pckg:
-                os.system("adb shell \" pm uninstall -k --user 0 %s\"" %x)
+                os.system("adb shell \" pm uninstall -k --user 0 %s\"" % x)
             clear()
             print(dashed_line)
             print("Everything seems to be removed")
@@ -492,6 +510,7 @@ def autoroot():
     os.system("adb reboot sideload")
     os.system("adb sideload /res/magisk.zip")
 """
+
 
 def rbMenu():
     clear()
@@ -590,7 +609,7 @@ def sTweaksMenu():
         clear()
         print(dashed_line)
         os.system("adb shell mount /system")
-        os.system("adb pull /system/build.prop " + resPath +"build.prop")
+        os.system("adb pull /system/build.prop " + resPath + "build.prop")
         print(Fore.WHITE + "Backup complete! Your build.prop is now in res folder!" + Fore.RESET)
         os.system("adb shell umount /system")
         input("push enter to continue")
