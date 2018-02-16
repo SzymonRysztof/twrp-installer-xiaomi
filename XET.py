@@ -157,7 +157,7 @@ def mix2Cam():
     isf = os.path.isfile(os.path.dirname(resPath) + os.sep + "cam.apk")
     if not isf:
         print(Fore.WHITE + "I need to download camera file first, be patient please" + Fore.RESET)
-        urllib.request.urlretrieve('http://80.211.242.62/cam.apk', resPath + 'cam.apk')
+        urllib.request.urlretrieve('http://www1.zippyshare.com/d/T0XrorQl/9267/cam.apk', resPath + 'cam.apk')
     elif isf:
         print(Fore.WHITE + "Ok, you have camera file already!" + Fore.RESET)
     md5sum = md5(path)
@@ -183,7 +183,7 @@ def comMiuiHome():
     isf = os.path.isfile(os.path.dirname(resPath) + os.sep + "com.miui.home")
     if not isf:
         print(Fore.WHITE + "I need to download custom home file first, be patient please" + Fore.RESET)
-        urllib.request.urlretrieve('http://80.211.242.62/home.file', resPath + 'com.miui.home')
+        urllib.request.urlretrieve('http://www9.zippyshare.com/d/dRMuSMgW/9585/com.miui.home', resPath + 'com.miui.home')
     elif isf:
         print(Fore.WHITE + "Ok, you have custom home file already!" + Fore.RESET)
     md5sum = md5(path)
@@ -245,7 +245,7 @@ def sideloader():
             menu()
 
 
-def twrpInstall():
+"""def twrpInstall():
     clear()
     print(dashed_line)
     # Tu sprawdzam nazwę urządzenia
@@ -262,6 +262,7 @@ def twrpInstall():
     i = 0
     i = int(i)
     array_length = len(supported_devices)
+    tf = False
     for i in range(array_length):
         if device == supported_devices[i]:
             tf = True
@@ -340,7 +341,7 @@ def twrpInstall():
     print(dashed_line)
     input()
     menu()
-
+"""
 
 def manualTwrp():
     clear()
@@ -735,7 +736,7 @@ def menu():
     print(Fore.WHITE + "|Here you can find system tweaks, they are all applied in recovery!|" + Fore.RESET)
     print(dashed_line)
     print(Fore.CYAN + "|3. Install Recovery                                               |")
-    print(Fore.WHITE + "|Use it to install recovery                                        |" + Fore.RESET)
+    print(Fore.WHITE + "|Use it to install recovery | Due to server problems, auto installer is off for now|" + Fore.RESET)
     print(dashed_line)
     print(Fore.CYAN + "|4. Check bootloader status (locked/unlocked)                      |")
     print(Fore.WHITE + "|You have to be in fastboot mode to make it work                   |" + Fore.RESET)
@@ -756,7 +757,7 @@ def menu():
         sTweaksMenu()
     elif case == 3:
         killsystem
-        twrpInstall()
+        manualTwrp()
     elif case == 4:
         clear()
         bl()
