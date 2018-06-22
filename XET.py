@@ -11,7 +11,8 @@ except ModuleNotFoundError:
     print ("You have no colorama installed, i will install it for you")
     print
     path = sys.executable
-    path = path[:-11]
+    #path = path[:-11]
+    path = path.replace("python.exe","")
     os.system(path+"/Scripts/pip install colorama")
     print
     print ("Ok, now you can restart script :)")
