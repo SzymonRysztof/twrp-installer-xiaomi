@@ -4,6 +4,7 @@ import sys
 import time
 import urllib.request
 import hashlib
+from twrp import twrpInstaller
 from colorama import Fore, Back, Style, init
 
 init()
@@ -95,7 +96,6 @@ localmd5s = [
 ]
 
 
-# Here are all functions that i'm using below (not all options in menu are functions)
 def mydevice():
     os.system("adb start-server")
     os.system("adb shell mount /system")
@@ -106,23 +106,16 @@ def mydevice():
     os.system("adb shell umount /system")
     glob_device = glob_device.lstrip('ro.product.device')[1:]
     codename = ''.join(glob_device.split())
+    devicename = codename
+    clear()
     for key, values in devicesDict.items():
         if key == codename:
             codename = values
             return codename
         elif key != codename:
             continue
-
-
-deviceN = mydevice()
-
-
-def goodbye():
-    killsystem
-    print(Fore.GREEN + "Consider a donation for me to keep my servers up!")
-    print("www.paypal.me/Mezutelni")
-    sys.exit()
-
+    codename = "none"
+    return codename
 
 # Thanks to stackoverflow!
 def md5(fname):
@@ -131,7 +124,6 @@ def md5(fname):
         for chunk in iter(lambda: f.read(4096), b""):
             hash_md5.update(chunk)
     return hash_md5.hexdigest()
-
 
 def dpiChanger():
     print(dashed_line)
@@ -149,7 +141,6 @@ def dpiChanger():
     print(dashed_line)
     sTweaksMenu()
 
-
 def mix2Cam():
     print(dashed_line)
     path = resPath + os.sep + "cam.apk"
@@ -164,16 +155,15 @@ def mix2Cam():
     if md5sum == localmd5s[0]:
         os.system("adb push " + resPath + "cam.apk /system/priv-app/MiuiCamera/MiuiCamera.apk")
         os.system("adb shell chmod 644 /system/priv-app/MiuiCamera/MiuiCamera.apk")
-        print(Fore.BLUE + "Your old camera is still here, backed up, just in case")
+        print(Back.BLUE + "Your old camera is still here, backed up, just in case" + Back.RESET)
         os.system("adb shell umount /system")
-        input("push enter to continue" + Fore.RESET)
+        input(Fore.GREEN + "push enter to continue" + Fore.RESET)
         print(dashed_line)
         sTweaksMenu()
     else:
         print("But it's looks like it's broken, let me re-download it!")
         os.remove(path)
         mix2Cam()
-
 
 def comMiuiHome():
     print(dashed_line)
@@ -190,16 +180,15 @@ def comMiuiHome():
     if md5sum == localmd5s[1]:
         os.system("adb push " + resPath + "com.miui.home /system/media/theme/default/com.miui.home")
         os.system("adb shell chmod 644 /system/media/theme/default/com.miui.home")
-        print(Fore.BLUE + "Your old com.miui.home is still here, backed up, just in case")
+        print(Back.BLUE + "Your old com.miui.home is still here, backed up, just in case" + Back.RESET)
         os.system("adb shell umount /system")
-        input("push enter to continue" + Fore.RESET)
+        input(Fore.GREEN +"push enter to continue" + Fore.RESET)
         print(dashed_line)
         sTweaksMenu()
     else:
         os.remove(path)
         print("But it's looks like it's broken, let me re-download it!")
         comMiuiHome()
-
 
 def bl():
     os.system("adb reboot bootloader")
@@ -212,21 +201,20 @@ def bl():
     # bl = bl[72]+bl[73]+bl[74]+bl[75]+bl[76]
     if bl[72] == "t":
         bl = "Unlocked"
-        print(Fore.GREEN + bl)
+        print(Fore.GREEN + bl + Fore.RESET)
     elif bl[72] == "f":
         bl = "Locked"
-        print(Fore.RED + bl)
+        print(Fore.RED + bl + Fore.RESET)
     print()
-    input(Fore.BLUE + "Push enter to exit")
+    input(Back.BLUE + "Push enter to exit" + Back.RESET)
     menu()
-
 
 def sideloader():
     while (True):
         print(dashed_line)
         print(
             Fore.WHITE + "Due to problems with adb sideload implementation, you have to start sideload on your phone manually!" + Fore.RESET)
-        sideloadFile = input(Fore.BLUE + "Drag and drop your file here: " + Fore.RESET)
+        sideloadFile = input(Back.BLUE + "Drag and drop your file here: " + Back.RESET)
         os.system("adb sideload " + sideloadFile)
         ifContinue = input("Do you want to sideload next file? (y/n)")
         ifContinue = str(ifContinue).lower()
@@ -244,169 +232,6 @@ def sideloader():
             time.sleep(5)
             menu()
 
-
-"""def twrpInstall():
-    clear()
-    print(dashed_line)
-    # Tu sprawdzam nazwę urządzenia
-    print("First, i have to download TWRP for you, make sure that your phone is turned on")
-    input("Push enter to continue")
-    device = os.system("adb shell \"cat /system/build.prop | grep ro.product.device=\" > tmp ")
-    device = open('tmp', 'r').read()
-    open('tmp', "r").close()
-    os.remove("tmp")
-    device = device.lstrip('ro.product.device')[1:]
-    device = ''.join(device.split())
-    # Tutaj sprawdzam czy urzadzenie jest wspierane (wpis w tablicy supported_devices)
-    tf = 0
-    i = 0
-    i = int(i)
-    array_length = len(supported_devices)
-    tf = False
-    for i in range(array_length):
-        if device == supported_devices[i]:
-            tf = True
-            break
-        elif device != supported_devices[i]:
-            tf = False
-    if tf == True:
-        urllib.request.urlretrieve('http://80.211.242.62/twrps/' + device + '.img', resPath + 'twrp.img')
-    elif tf == False:
-        clear()
-        print("Sadly, there is no Official TWRP for your " + devicesDict[
-            device] + " so you will have to download image manually :(")
-        install = input("Do you want to install downloaded image now? (Y/N)")
-        if install.lower() == "y":
-            manualTwrp()
-        else:
-            menu()
-    # Tutaj pobieram odpowiednie twrp z mojego serwera
-    print("So, your device is " + devicesDict[device] + ", be patient file is now being downloaded")
-    urllib.request.urlretrieve('http://80.211.242.62/twrps/' + device + '.img', filePath + 'twrp.img')
-    os.system("adb reboot bootloader")
-    time.sleep(5)
-    os.system('fastboot devices')
-    print("Do you see your device here? (y/n): \n")
-    deviceVisible = input('').lower()
-
-    if deviceVisible == "n":
-        clear()
-        print()
-        print("Check connection with device")
-        print("Phone should display MiTu rabbit \"Fixing\" android ")
-        print("And then you can restart this program")
-        print()
-        input("Press enter to continue")
-        menu()
-
-    elif deviceVisible == "y":
-        clear()
-        print("Great! we can go to the next step\n")
-
-    else:
-        clear()
-        print(Fore.RED + "You have to choose (Y)es or (N)o!" + Fore.RESET)
-        print()
-        twrpInstall()
-
-    os.system('fastboot boot twrp.img')
-    clear()
-    print(dashed_line)
-    print(
-        "\nCan you see twrp menu on your phone? (This can take some time, depending on the phone\nAlso you should wait for full boot!)(y/n)")
-    twrpS = input().lower()
-
-    if twrpS == "n":
-        clear()
-        print("If you have benn waiting longer than 1min you should contact me first\n")
-        print("For now, we are going back to main menu!")
-        input("Push enter to continue")
-        menu()
-    elif twrpS == "y":
-        print("Ok, here we go!")
-
-    else:
-        print(Fore.RED + "Wrong option!" + Fore.RESET)
-        input("Push enter to continue")
-    os.system('adb reboot bootloader')
-    os.system('fastboot flash recovery twrp.img')
-    os.system('fastboot boot twrp.img')
-    print(Fore.WHITE + "Please wait, +- 10s" + Fore.RESET)
-    time.sleep(10)
-    os.system('adb reboot recovery')
-    clear()
-    print(dashed_line)
-    print("Congratulations, your TWRP has been succesfully installed!")
-    os.remove(resPath + 'twrp.img')
-    print(dashed_line)
-    input()
-    menu()
-"""
-
-def manualTwrp():
-    clear()
-    print(dashed_line)
-    path = input("Drag and drop TWRP img here! ")
-    os.system("adb reboot bootloader")
-    time.sleep(5)
-    os.system('fastboot devices')
-    print("Do you see your device here? (y/n): \n")
-    deviceVisible = input('').lower()
-
-    if deviceVisible == "n":
-        clear()
-        print()
-        print("Check connection with device")
-        print("Phone should display MiTu rabbit \"Fixing\" android ")
-        print("And then you can restart this program")
-        print()
-        input("Press enter to continue")
-        menu()
-
-    elif deviceVisible == "y":
-        clear()
-        print("Great! we can go to the next step\n")
-
-    else:
-        clear()
-        print(Fore.RED + "You have to choose (Y)es or (N)o!" + Fore.RESET)
-        print()
-        manualTwrp()
-
-    os.system('fastboot boot ' + path)
-    clear()
-    print(dashed_line)
-    print(
-        "\nCan you see twrp menu on your phone? (This can take some time, depending on the phone\nAlso you should wait for full boot!)(y/n)")
-    twrpS = input().lower()
-
-    if twrpS == "n":
-        clear()
-        print("If you have benn waiting longer than 1min you should contact me first\n")
-        print("For now, we are going back to main menu!")
-        input("Push enter to continue")
-        menu()
-    elif twrpS == "y":
-        print("Ok, here we go!")
-
-    else:
-        print(Fore.RED + "Wrong option!" + Fore.RESET)
-        input("Push enter to continue")
-    os.system('adb reboot bootloader')
-    os.system('fastboot flash recovery ' + path)
-    os.system('fastboot boot ' + path)
-    print(Fore.WHITE + "Please wait, +- 10s" + Fore.RESET)
-    time.sleep(10)
-    os.system('adb reboot recovery')
-    clear()
-    print(dashed_line)
-    print("Congratulations, your TWRP has been succesfully installed!")
-    os.remove(resPath + 'twrp.img')
-    print(dashed_line)
-    input()
-    menu()
-
-
 def removermiui():
     print(dashed_line + Fore.LIGHTCYAN_EX)
     i = 1
@@ -415,7 +240,7 @@ def removermiui():
         i = i + 1
     print()
     print("0. Exit")
-    case = int(input(Fore.BLUE + "choose: " + Fore.RESET))
+    case = int(input(Back.BLUE + "choose: " + Back.RESET))
     # adb shell pm uninstall -k --user 0 com.google.android.apps.translate
     i = 0
     if case == 0:
@@ -442,7 +267,7 @@ def removergoogle():
         i = i + 1
     print()
     print("0. Exit")
-    case = int(input(Fore.BLUE + "choose: " + Fore.RESET))
+    case = int(input(Back.BLUE + "choose: " + Back.RESET))
     # adb shell pm uninstall -k --user 0 com.google.android.apps.translate
     i = 0
     if case == 0:
@@ -467,14 +292,14 @@ def appremover():
     print("2. Google Apps")
     print("3. Full")
     print(Fore.RED + "^This one will remove all possible google and miui apps" + Fore.YELLOW)
-    case = int(input(Fore.BLUE + "choose: " + Fore.RESET))
+    case = int(input(Back.BLUE + "choose: " + Back.RESET))
     if case == 1:
         clear()
         removermiui()
     elif case == 2:
         clear()
         removergoogle()
-        case = int(input(Fore.BLUE + "choose: " + Fore.RESET))
+        case = int(input(Back.BLUE + "choose: " + Back.RESET))
     elif case == 3:
         apps = list("")
         pckg = list("")
@@ -490,7 +315,7 @@ def appremover():
             i = i + 1
             continue
         print(Fore.RED + "Are you sure you want to remove: %s?" % ', '.join(apps))
-        case = input(Fore.BLUE + "Y/N: " + Fore.RESET)
+        case = input(Back.BLUE + "Y/N: " + Back.RESET)
         if case.lower() == "y":
             for x in pckg:
                 os.system("adb shell \" pm uninstall -k --user 0 %s\"" % x)
@@ -502,20 +327,9 @@ def appremover():
         elif case.lower() == "n":
             sTweaksMenu()
 
-
-"""
-def autoroot():
-    print(dashed_line)
-    urllib.request.urlretrieve('http://80.211.242.62/magisk.zip', resPath + 'magisk.zip')
-    os.system("adb reboot recovery")
-    os.system("adb reboot sideload")
-    os.system("adb sideload /res/magisk.zip")
-"""
-
-
 def rbMenu():
     clear()
-    print(deviceN)
+    print(mydevice())
     print(dashed_line)
     print(Fore.YELLOW + "| X.E.T                                                            |")
     print("| REBOOT MENU                                                      |")
@@ -537,9 +351,12 @@ def rbMenu():
     print(Fore.CYAN + "|5. Reboot to adb-sideload                                         |")
     print(Fore.WHITE + "|Reboot to sideload using ADB-root (so use it when in recovery)    |" + Fore.RESET)
     print(dashed_line)
+    print(Fore.CYAN + "|6. Boot twrp from file                                            |")
+    print(Fore.WHITE + "|You can use it when you dont want to install it                   |" + Fore.RESET)
+    print(dashed_line)
     print(Fore.CYAN + "|0. Back to main menu                                              |")
     print(dashed_line + Fore.RESET)
-    case = int(input(Fore.BLUE + "choose: " + Fore.RESET))
+    case = int(input(Back.BLUE + "choose: " + Back.RESET))
     if case == 1:
         clear()
         os.system('adb reboot recovery')
@@ -563,6 +380,11 @@ def rbMenu():
         clear()
         os.system('adb reboot sideload')
         menu()
+    elif case == 6:
+        clear()
+        twrp = input("Put twrp file here: ")
+        os.system('fastboot boot '+twrp)
+        menu()
     elif case == 0:
         killsystem
         clear()
@@ -573,11 +395,10 @@ def rbMenu():
         input("push enter to continue")
         rbMenu()
 
-
 # Tweaks
 def sTweaksMenu():
     clear()
-    print(deviceN)
+    print(mydevice())
     print(dashed_line)
     print(Fore.YELLOW + "| X.E.T                                                            |")
     print("| SYSTEM TWEEKS MENU                                               |")
@@ -605,7 +426,7 @@ def sTweaksMenu():
     print(dashed_line)
     print(Fore.CYAN + "|0. Back to main menu                                              |")
     print(dashed_line)
-    case = int(input(Fore.BLUE + "choose: " + Fore.RESET))
+    case = int(input(Back.BLUE + "choose: " + Back.RESET))
     if case == 1:
         clear()
         print(dashed_line)
@@ -660,11 +481,10 @@ def sTweaksMenu():
         input("push enter to continue")
         sTweaksMenu()
 
-
 # about
 def aboutMenu():
     clear()
-    print(deviceN)
+    print(mydevice())
     print(dashed_line)
     print(Fore.YELLOW + "| X.E.T                                                            |")
     print("| About                                                            |")
@@ -679,7 +499,7 @@ def aboutMenu():
     print(dashed_line)
     print(Fore.CYAN + "|0. Back                                                           |")
     print(dashed_line)
-    case = int(input(Fore.BLUE + "choose: " + Fore.RESET))
+    case = int(input(Back.BLUE + "choose: " + Back.RESET))
     if case == 1:
         print(dashed_line)
         print("Simply script, created by student, to make some tweaks easier to apply")
@@ -720,11 +540,10 @@ def aboutMenu():
     else:
         aboutMenu()
 
-
 # main
 def menu():
     clear()
-    print(deviceN)
+    print(mydevice())
     print(dashed_line)
     print(Fore.YELLOW + "| X.E.T                                                            |")
     print("| Xiaomi Essential Tools                                           |")
@@ -748,7 +567,7 @@ def menu():
     print(dashed_line)
     print(Fore.CYAN + "|0. Exit                                                           |")
     print(dashed_line + Fore.RESET)
-    case = int(input(Fore.BLUE + "choose: " + Fore.RESET))
+    case = int(input(Back.BLUE+ "choose: " + Back.RESET))
     if case == 1:
         killsystem
         rbMenu()
@@ -757,7 +576,8 @@ def menu():
         sTweaksMenu()
     elif case == 3:
         killsystem
-        manualTwrp()
+        twrpInstaller(mydevice(), s)
+        menu()
     elif case == 4:
         clear()
         bl()
@@ -771,12 +591,14 @@ def menu():
         clear()
         aboutMenu()
     elif case == 0:
-        goodbye()
+        killsystem
+        print(Fore.GREEN + "Consider a donation for me to keep my servers up!")
+        print("www.paypal.me/Mezutelni")
+        sys.exit()
     else:
         clear()
         print(Fore.RED + "Error choose right option\n" + Fore.RESET)
         input("push enter to continue")
         menu()
-
 
 menu()

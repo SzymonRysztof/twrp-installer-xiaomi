@@ -4,3 +4,4 @@ twrp\.img
 test.py
 res/*
 setup.py
+.vscode/settings.json
