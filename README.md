@@ -20,7 +20,7 @@ Zestaw narzedzi dla telefonów Xiaomi napisany w Pytonie
 Windows:<br>
 1. Instalujemy pythona w wersji 3.X<br>
 2. Pobieramy i instalujemy ADB + Fastboot (Ważne jest żeby znajdowały się w PATH systemowych!)<br>
-3. Pobieramy repozytprium z GitHub<br>
+3. [Pobieramy repozytprium z GitHub](https://github.com/mezutelni/twrp-installer-xiaomi/archive/master.zip)<br>
 4. Uruchamiamy XET.py<br>
 
 Linux:<br>
@@ -62,7 +62,7 @@ Essential toolkit for Xiaomi's phones coded in Python
 Windows:<br>
 1. Install python 3<br>
 2. Download and install ADB + Fastboot (Its your choice, but make sure that they are in PATH)<br>
-3. Download repo from GitHub<br>
+3. [Download repo from GitHub](https://github.com/mezutelni/twrp-installer-xiaomi/archive/master.zip)<br>
 4. Run XET.py (The best way is to open it in CMD so you can send me crash notes)<br>
 
 Linux:<br>
