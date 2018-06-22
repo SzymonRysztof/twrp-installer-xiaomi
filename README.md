@@ -16,7 +16,7 @@ Zestaw narzedzi dla telefonów Xiaomi napisany w Pytonie
 - Colorama (W przypadku braku, instaluje się automatycznie)
 - [ADB](https://forum.xda-developers.com/showthread.php?t=2588979) (rekomendowane przeze mnie)
 
-### Instalacja
+## Instalacja
 Windows:<br>
 1. Instalujemy pythona w wersji 3.X<br>
 2. Pobieramy i instalujemy ADB + Fastboot (Ważne jest żeby znajdowały się w PATH systemowych!)<br>
@@ -31,13 +31,13 @@ Instrukcja dla ubuntu i mu podobnych, ale zasada ta sama dla każdej dystrybucji
 4. `chmod +x XET.py`<br>
 5. Uruchamiamy z terminala przez `./XET.py`<br>
     
-### Funkcje:
+## Funkcje:
 - Instalacja recovery dla odblokowanych urządzeń<br>
 - Resetowanie telefonu do trybu fastboot, recovery, sideload, system<br>
 - Bootowanie TWRP z pliku (przydatne dla osób które nie chcą instalować TWRP, np. na globalu)<br>
 - Określanie stanu bootloader (odblokowany/zablokowany)<br>
 - Sideloadowanie paczek zip (drag and drop)<br>
-#### Tweaki systemowe:
+## Tweaki systemowe:
 - Tworzenie i przywracanie backupu build.prop<br>
 - Zmiana DPI<br>
 - Instalacja aplikacji kamery z Mi Mix 2(Automatyczny backup starej aplikacji w /system/priv-app/MiuiCamera/MiuiCamera.bak)<br>
@@ -57,7 +57,7 @@ Essential toolkit for Xiaomi's phones coded in Python
 - Colorama (It'll install automatically with first start)
 - [ADB](https://forum.xda-developers.com/showthread.php?t=2588979) (these are recommended by me)
 
-### Installation
+## Installation
 
 Windows:<br>
 1. Install python 3<br>
@@ -72,13 +72,13 @@ For ubuntu family:<br>
 3. Open terminal in repo location<br>
 4. `chmod +x XET.py`<br>
 5. Run `./XET.py` in terminal<br>
-### Functions:
+## Functions:
 - Installing twrp for unlocked phones<br>
 - Rebooting phone to fastboot, recovery, sideload, system<br>
 - Booting twrp directly from file (Usefull if you don't want to install recovery, eg. when you are using global)<br>
 - Checking bootloader status (locked/unlocked)<br>
 - Sideloading zips (drag and drop)<br>
-#### System tweaks:
+## System tweaks:
 - Backing up and restoring build.prop file<br>
 - Changing DPI<br>
 - Installing Mi Mix 2 camera apk (Auto backup old file to /system/priv-app/MiuiCamera/MiuiCamera.bak)<br>
