@@ -22,6 +22,7 @@ Windows:<br>
 2. Pobieramy i instalujemy ADB + Fastboot (Ważne jest żeby znajdowały się w PATH systemowych!)<br>
 3. Pobieramy repozytprium z GitHub<br>
 4. Uruchamiamy XET.py<br>
+
 Linux:<br>
 Instrukcja dla ubuntu i mu podobnych, ale zasada ta sama dla każdej dystrybucji<br>
 1. `sudo apt-get install python3 python-pip git android-tools-adb android-tools-fastboot`<br>
@@ -63,6 +64,7 @@ Windows:<br>
 2. Download and install ADB + Fastboot (Its your choice, but make sure that they are in PATH)<br>
 3. Download repo from GitHub<br>
 4. Run XET.py (The best way is to open it in CMD so you can send me crash notes)<br>
+
 Linux:<br>
 For ubuntu family:<br>
 1. `sudo apt-get install python3 git android-tools-adb android-tools-fastboot`<br>
