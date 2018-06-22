@@ -35,8 +35,9 @@ Linux:<br>
     6.Uruchamiamy z terminala przez ./XET.py<br>
 
 ### Funkcje:
--Pobieranie i instalacja recovery dla wspieranych urządzeń (oficjalne twrp)<br>
+-Instalacja recovery dla odblokowanych urządzeń<br>
 -Resetowanie telefonu do trybu fastboot, recovery, sideload, system<br>
+-Bootowanie TWRP z pliku (przydatne dla osób które nie chcą instalować TWRP, np. na globalu)<br>
 -Określanie stanu bootloader (odblokowany/zablokowany)<br>
 -Sideloadowanie paczek zip (drag and drop)<br>
 #### Tweaki systemowe:
@@ -56,7 +57,7 @@ Essential toolkit for Xiaomi's phones coded in Python
 
 ## Requirements
 -Python
--Colorama
+-Colorama (python module)
 
 
 ### Installation
@@ -81,8 +82,9 @@ Linux:<br>
 
 
 ### Functions:
--Downloading and installing twrp for supported phones (this with official TWRP)<br>
+-Installing twrp for unlocked phones<br>
 -Rebooting phone to fastboot, recovery, sideload, system<br>
+-Booting twrp directly from file (Usefull if you don't want to install recovery, eg. when you are using global)<br>
 -Checking bootloader status (locked/unlocked)<br>
 -Sideloading zips (drag and drop)<br>
 #### System tweaks:
