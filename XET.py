@@ -4,8 +4,21 @@ import sys
 import time
 import urllib.request
 import hashlib
+
+try:
+    from colorama import Fore, Back, Style, init
+except ModuleNotFoundError:
+    print ("You have no colorama installed, i will install it for you")
+    print
+    path = sys.executable
+    path = path[:-11]
+    os.system(path+"/Scripts/pip install colorama")
+    print
+    print ("Ok, now you can restart script :)")
+    from colorama import Fore, Back, Style, init
+
 from twrp import twrpInstaller
-from colorama import Fore, Back, Style, init
+    
 
 init()
 
@@ -34,29 +47,28 @@ filePath = os.path.abspath(os.path.dirname(__file__)) + os.sep
 
 
 # this is list of devices with official twrp support
-supported_devices = ["aries", "cancro", "capricorn", "dior", "ferrari", "gemini", "helium", "hennessy", "hermes",
-                     "hydrogen", "ido", "kate", "kenzo", "land", "libra", "lithium", "mido", "mocha", "natrium",
-                     "rolex", "sagit", "santoni"]
 
 devices = ["cancro", "libra", "ferrari", "aqua", "gemini", "virgo", "leo", "scorpio", "jason", "tiffany", "song",
            "meri", "tisson", "capricorn", "natrium", "lithium", "chiron", "sagit", "hydrogen", "oxygen", "helium",
            "HM2013023", "armani", "HM2014811", "HM2014813", "omega", "lcsh92_wet_jb9", "gucci", "dior", "hermes", "ido",
            "land", "hennessy", "kate", "kenzo", "nikel", "prada", "markw", "ugg", "mido", "rolex", "santoni", "mocha",
-           "latte", "cappu", ]
+           "latte", "cappu","ugglite" ]
 
 devicesDict = {'aries': "Mi 2", 'pisces': "Mi 3 TD", 'cancro': "Mi 3 W/Mi 4", 'libra': "Mi 4c",
                'ferrari': "Mi 4i", 'aqua': "Mi 4s", 'gemini': "Mi 5", 'virgo': "Mi Note",
                'leo': "Mi Note Pro", 'scorpio': "Mi Note 2", 'jason': "Mi Note 3", 'tiffany': "Mi 5x",
-               'song': "Mi 5c", 'meri': "Mi 5c", 'tisson': "Mi A1", 'capricorn': "Mi 5s", 'natrium': "Mi 5s+",
-               'lithium': "Mi MIX", 'chiron': "Mi MIX 2", 'sagit': "Mi 6", 'hydrogen': "Mi MAX",
-               'oxygen': "Mi MAX 2", 'helium': "Mi MAX PRO", 'HM2013023': "Redmi 1 - WCDMA",
+               'song': "Mi 5c", 'meri': "Mi 5c", 'tissot': "Mi A1", 'capricorn': "Mi 5s", 'natrium': "Mi 5s+",
+               'lithium': "Mi MIX", 'chiron': "Mi MIX 2",'polaris':'Mi MIX 2s', 'sagit': "Mi 6", 'hydrogen': "Mi MAX",
+               'oxygen': "Mi MAX 2", 'helium': "Mi MAX PRO",
+                'HM2013023': "Redmi 1 - WCDMA",
                'armani': "Redmi 1s - WCDMA", 'HM2014811': "Redmi 2 - WCDMA", 'HM2014813': "Redmi 2 - TD",
                'omega': "Redmi PRO", 'lcsh92_wet_jb9': "Redmi note 1 - 3g-mtk", 'gucci': "Redmi note 1s",
                'dior': "Redmi Note 1 - 4g", 'hermes': "Redmi Note 2", 'ido': "Redmi 3", 'land': "Redmi 3 S/X",
                'hennessy': "Redmi Note 3 (MTK)", 'kate': "Redmi Note 3 Global",
                'kenzo': "Redmi Note 3 Chinese", 'nikel': "Redmi Note 4", 'prada': "Redmi 4",
                'markw': "Redmi 4 pro", 'ugg': "Redmi Note 5A", 'mido': "Redmi Note 4/4x", 'rolex': "Redmi 4a",
-               'santoni': "Redmi 4x", 'mocha': "Mi PAD", 'latte': "Mi PAD 2", 'cappu': "Mi PAD 3"}
+               'santoni': "Redmi 4x", 'ugglite':'Redmi Note 5A','vince':'Redmi Note 5/5+','whyred':'Redmi Note 5 Pro',
+                'mocha': "Mi PAD", 'latte': "Mi PAD 2", 'cappu': "Mi PAD 3"}
 
 googleApps = {
     "youtube": "com.google.android.youtube",

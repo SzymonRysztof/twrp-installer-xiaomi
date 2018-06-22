@@ -1,11 +1,8 @@
+#!/usr/bin/python3
 import os
 import sys
 import time
 from colorama import Fore, Back, Style, init
-
-supported_devices = ["aries", "cancro", "capricorn", "dior", "ferrari", "gemini", "helium", "hennessy", "hermes",
-                     "hydrogen", "ido", "kate", "kenzo", "land", "libra", "lithium", "mido", "mocha", "natrium",
-                     "rolex", "sagit", "santoni"]
 
 init()
 
