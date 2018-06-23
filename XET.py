@@ -108,6 +108,21 @@ localmd5s = [
     "537e17e2585e731a1c26fbd81eb2affa",  # 1.home
 ]
 
+def getInt():
+    
+    try:
+        case = int(input(Back.BLUE + "choose: " + Back.RESET))
+        return case
+    except ValueError:
+        print()
+        print(Fore.RED+"Wrong, choose right option!"+Fore.RESET)
+        case = int(getInt())
+    return case
+    
+        
+
+
+
 
 def mydevice():
     os.system("adb start-server")
@@ -245,55 +260,31 @@ def sideloader():
             time.sleep(5)
             menu()
 
-def removermiui():
+def remover(appList):
     print(dashed_line + Fore.LIGHTCYAN_EX)
     i = 1
-    for key, values in miuiApps.items():
+    for key, values in appList.items():
         print("%i. %s" % (i, key.capitalize()))
         i = i + 1
     print()
     print("0. Exit")
-    case = int(input(Back.BLUE + "choose: " + Back.RESET))
-    # adb shell pm uninstall -k --user 0 com.google.android.apps.translate
+    case = getInt()
     i = 0
     if case == 0:
         clear()
         sTweaksMenu()
     else:
-        for key, values in miuiApps.items():
+        for key, values in appList.items():
             pckg = values
             if case == i + 1:
                 clear()
                 print(dashed_line + Fore.GREEN)
                 os.system("adb shell \"pm uninstall -k --user 0 %s\"" % pckg)
-                removermiui()
-            else:
-                i = i + 1
-                continue
-
-
-def removergoogle():
-    print(dashed_line + Fore.LIGHTCYAN_EX)
-    i = 1
-    for key, values in googleApps.items():
-        print("%i. %s" % (i, key.capitalize()))
-        i = i + 1
-    print()
-    print("0. Exit")
-    case = int(input(Back.BLUE + "choose: " + Back.RESET))
-    # adb shell pm uninstall -k --user 0 com.google.android.apps.translate
-    i = 0
-    if case == 0:
-        clear()
-        sTweaksMenu()
-    else:
-        for key, values in googleApps.items():
-            pckg = values
-            if case == i + 1:
-                clear()
-                print(dashed_line + Fore.GREEN)
-                os.system("adb shell \"pm uninstall -k --user 0 %s\"" % pckg)
-                removergoogle()
+                print (pckg)
+                if appList==miuiApps:
+                    removermiui()
+                elif appList==googleApps:
+                    removergoogle()
             else:
                 i = i + 1
                 continue
@@ -301,18 +292,25 @@ def removergoogle():
 
 def appremover():
     print(dashed_line)
-    print(Fore.YELLOW + "1. Miui Apps")
-    print("2. Google Apps")
-    print("3. Full")
-    print(Fore.RED + "^This one will remove all possible google and miui apps" + Fore.YELLOW)
-    case = int(input(Back.BLUE + "choose: " + Back.RESET))
+    print(Fore.YELLOW + "| X.E.T                                                            |")
+    print("| App remover menu                                                  |")
+    print(dashed_line)
+    print(Fore.CYAN + "| 1. Miui Apps")
+    print(dashed_line)
+    print(Fore.CYAN +"| 2. Google Apps")
+    print(dashed_line)
+    print(Fore.CYAN +"| 3. Full")
+    print(Fore.RED + "| ^This one will remove all possible google and miui apps"+Fore.RESET)
+    print(dashed_line)
+    print(Fore.CYAN + "| 0. Exit")
+    print(dashed_line)
+    case = getInt()
     if case == 1:
         clear()
-        removermiui()
+        remover(miuiApps)
     elif case == 2:
         clear()
-        removergoogle()
-        case = int(input(Back.BLUE + "choose: " + Back.RESET))
+        remover(googleApps)
     elif case == 3:
         apps = list("")
         pckg = list("")
@@ -339,6 +337,8 @@ def appremover():
             sTweaksMenu()
         elif case.lower() == "n":
             sTweaksMenu()
+    elif case==0:
+        sTweaksMenu()
 
 def rbMenu():
     clear()
@@ -369,7 +369,7 @@ def rbMenu():
     print(dashed_line)
     print(Fore.CYAN + "|0. Back to main menu                                              |")
     print(dashed_line + Fore.RESET)
-    case = int(input(Back.BLUE + "choose: " + Back.RESET))
+    case = getInt()
     if case == 1:
         clear()
         os.system('adb reboot recovery')
@@ -439,7 +439,7 @@ def sTweaksMenu():
     print(dashed_line)
     print(Fore.CYAN + "|0. Back to main menu                                              |")
     print(dashed_line)
-    case = int(input(Back.BLUE + "choose: " + Back.RESET))
+    case = getInt()
     if case == 1:
         clear()
         print(dashed_line)
@@ -512,7 +512,7 @@ def aboutMenu():
     print(dashed_line)
     print(Fore.CYAN + "|0. Back                                                           |")
     print(dashed_line)
-    case = int(input(Back.BLUE + "choose: " + Back.RESET))
+    case = getInt()
     if case == 1:
         print(dashed_line)
         print("Simply script, created by student, to make some tweaks easier to apply")
@@ -580,7 +580,8 @@ def menu():
     print(dashed_line)
     print(Fore.CYAN + "|0. Exit                                                           |")
     print(dashed_line + Fore.RESET)
-    case = int(input(Back.BLUE+ "choose: " + Back.RESET))
+    case = getInt()
+    
     if case == 1:
         killsystem
         rbMenu()
@@ -610,7 +611,7 @@ def menu():
         sys.exit()
     else:
         clear()
-        print(Fore.RED + "Error choose right option\n" + Fore.RESET)
+        print("Error choose right option\n" + Fore.RESET)
         input("push enter to continue")
         menu()
 
